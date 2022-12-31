@@ -1,0 +1,10 @@
+<div *ngIf="service.movies">
+  <div class="flex items-center flex-wrap justify-evenly">
+    <div *ngFor="let movie of service.movies">
+      <app-movie [movie]="movie"></app-movie>
+    </div>
+  </div>
+</div>
+<div *ngIf="!service.movies">
+  <p>filmler gelmedi</p>
+</div>
