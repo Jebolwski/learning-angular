@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from 'src/app/interfaces/movie/movie';
+import { Movie } from 'src/app/interfaces/movie';
 
 @Component({
   selector: 'app-movie',
@@ -8,6 +8,4 @@ import { Movie } from 'src/app/interfaces/movie/movie';
 })
 export class MovieComponent {
   @Input() movie!: Movie;
-
-  constructor() {}
 }

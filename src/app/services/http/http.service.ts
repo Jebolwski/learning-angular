@@ -1,21 +1,37 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Movie } from '../../interfaces/movie/movie';
-
+import { Movie } from 'src/app/interfaces/movie';
+import { Blog } from 'src/app/interfaces/blog';
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  movies: Movie[] = [];
+  ActionMovies: Movie[] = [];
+  ComedyMovies: Movie[] = [];
+  FightingMovies: Movie[] = [];
+  blogs: Blog[] = [];
 
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
 
+  private baseApiUrl: string = 'http://127.0.0.1:8000/api/';
+
   constructor(private http: HttpClient) {}
+
+  getBlogs(): void {
+    this.http
+      .get<Blog[]>(this.baseApiUrl + 'blogs/all')
+      .subscribe((res: any) => {
+        this.blogs = res.msg;
+        console.log(res.msg);
+      });
+  }
 
   getMovies(): void {
     this.http.get<Movie[]>(this.apiUrl).subscribe((res: Movie[]) => {
-      this.movies = res.slice(0, 100);
+      this.ActionMovies = res.slice(0, 50);
+      this.ComedyMovies = res.slice(50, 70);
+      this.FightingMovies = res.slice(70, 85);
     });
   }
 }

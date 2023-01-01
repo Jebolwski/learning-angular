@@ -1,0 +1,8 @@
+<div
+  class="dark:text-white text-black dark:bg-stone-700 p-4 bg-stone-200 w-3/5 rounded-md mt-3 bg-gradient-to-tr from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
+>
+  <h1>{{ blog.text }}</h1>
+  <div *ngIf="blog.file">
+    <img src="http://127.0.0.1:8000{{ blog.file }}" class="w-3/5 mt-5" />
+  </div>
+</div>

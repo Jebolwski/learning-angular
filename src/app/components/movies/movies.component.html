@@ -1,10 +1,35 @@
-<div *ngIf="service.movies">
-  <div class="flex items-center flex-wrap justify-evenly">
-    <div *ngFor="let movie of service.movies">
-      <app-movie [movie]="movie"></app-movie>
+<div class="px-3">
+  <div *ngIf="service.ActionMovies">
+    <h2 class="text-lg font-semibold pt-5">Action Movies</h2>
+    <div class="flex items-center flex-wrap justify-between">
+      <div *ngFor="let movie of service.ActionMovies">
+        <app-movie [movie]="movie"></app-movie>
+      </div>
     </div>
   </div>
-</div>
-<div *ngIf="!service.movies">
-  <p>filmler gelmedi</p>
+  <div *ngIf="!service.ActionMovies">
+    <p>filmler gelmedi</p>
+  </div>
+  <div *ngIf="service.ComedyMovies">
+    <h2 class="text-lg font-semibold pt-5">Comedy Movies</h2>
+    <div class="flex items-center flex-wrap justify-between">
+      <div *ngFor="let movie of service.ComedyMovies">
+        <app-movie [movie]="movie"></app-movie>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!service.ComedyMovies">
+    <p>filmler gelmedi</p>
+  </div>
+  <div *ngIf="service.FightingMovies">
+    <h2 class="text-lg font-semibold pt-5">Fighting Movies</h2>
+    <div class="flex items-center flex-wrap justify-between">
+      <div *ngFor="let movie of service.FightingMovies">
+        <app-movie [movie]="movie"></app-movie>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!service.FightingMovies">
+    <p>filmler gelmedi</p>
+  </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Movie } from '../../interfaces/movie/movie';
+import { Movie } from 'src/app/interfaces/movie';
 import { HttpService } from 'src/app/services/http/http.service';
 @Component({
   selector: 'app-movies',
