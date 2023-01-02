@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  margin-bottom: 0 !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-icon {
+  font-size: 18px;
+  width: 18px !important;
+  color: red;
+  height: 18px !important;
+}

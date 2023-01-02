@@ -9,7 +9,8 @@ import { MovieComponent } from './components/movie/movie.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,13 @@ import { BlogsComponent } from './components/blogs/blogs.component';
     BlogComponent,
     BlogsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

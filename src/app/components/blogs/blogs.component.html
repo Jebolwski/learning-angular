@@ -1,8 +1,9 @@
-<div class="dark:bg-stone-800 bg-stone-100 px-2">
-  <h2 class="text-xl font-semibold">Blogs</h2>
-  <div *ngIf="service.blogs">
-    <div *ngFor="let blog of service.blogs">
-      <app-blog [blog]="blog"></app-blog>
+<div class="dark:bg-stone-800 bg-stone-100 px-2 pt-4">
+  <div class="flex justify-center">
+    <div *ngIf="service.blogs">
+      <div *ngFor="let blog of service.blogs">
+        <app-blog [blog]="blog"></app-blog>
+      </div>
     </div>
   </div>
 </div>
