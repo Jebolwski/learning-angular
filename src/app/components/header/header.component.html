@@ -2,9 +2,64 @@
   class="header sticky top-0 border-b bg-stone-100 border-stone-100 dark:border-stone-800 shadow-md shadow-stone-300 dark:shadow-stone-700 dark:bg-stone-800 h-12"
 >
   <div class="flex items-center justify-between h-12 p-1">
-    <img
-      src="https://iconarchive.com/download/i99782/designbolts/free-multimedia/Film.ico"
-      class="w-8"
-    />
+    <a routerLink="/">
+      <img
+        src="https://iconarchive.com/download/i99782/designbolts/free-multimedia/Film.ico"
+        class="w-8"
+      />
+    </a>
+    <div class="w-2/5 relative flex">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="favorite-icon"
+        fontIcon="search"
+        class="absolute left-2 z-10 top-[8px]"
+        style="width: 20px; height: 20px; font-size: 20px"
+      ></mat-icon>
+      <input
+        type="text"
+        placeholder="Search..."
+        class="header-search-input w-full pl-9 bg-stone-50 border border-stone-300 text-stone-900 rounded-lg rounded-r-none p-1 dark:bg-stone-800 dark:border-stone-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-stone-700 focus-visible:outline-stone-300"
+      />
+      <button
+        class="bg-stone-900 p-1 rounded-r-lg border border-stone-700 flex items-center justify-center"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="favorite-icon"
+          fontIcon="search"
+          class="search-icon"
+        ></mat-icon>
+      </button>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="favorite-icon"
+          fontIcon="chat"
+        ></mat-icon>
+        <p>Blogs</p>
+      </div>
+      <div class="flex items-center gap-1">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="favorite-icon"
+          fontIcon="bookmark"
+        ></mat-icon>
+        <p>Bookmarks</p>
+      </div>
+      <div class="flex items-center">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="favorite-icon"
+          fontIcon="settings"
+        ></mat-icon>
+      </div>
+      <img
+        src="http://127.0.0.1:8000/media/blog_file/Ahmet.png"
+        class="w-8 h-8 rounded-full"
+      />
+    </div>
   </div>
 </div>

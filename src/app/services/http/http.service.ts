@@ -10,6 +10,7 @@ export class HttpService {
   ComedyMovies: Movie[] = [];
   FightingMovies: Movie[] = [];
   blogs: Blog[] = [];
+  singleblog!: Blog;
 
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
@@ -23,6 +24,15 @@ export class HttpService {
       .get<Blog[]>(this.baseApiUrl + 'blogs/all')
       .subscribe((res: any) => {
         this.blogs = res.msg;
+        console.log(res.msg);
+      });
+  }
+
+  getABlog(id: string): void {
+    this.http
+      .get<Blog[]>(this.baseApiUrl + 'blogs/' + id)
+      .subscribe((res: any) => {
+        this.singleblog = res.msg;
         console.log(res.msg);
       });
   }

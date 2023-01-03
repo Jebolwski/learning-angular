@@ -8,8 +8,15 @@ body {
 }
 
 .mat-icon {
+  height: auto !important;
   font-size: 18px;
-  width: 18px !important;
-  color: red;
-  height: 18px !important;
+}
+
+.search-icon {
+  width: 21px;
+  height: 21px;
+  font-size: 21px;
+}
+
+.header-search-input:focus {
 }
