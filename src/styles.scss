@@ -5,6 +5,7 @@
 body {
   margin-bottom: 0 !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  scroll-behavior: smooth;
 }
 
 .mat-icon {
@@ -16,7 +17,4 @@ body {
   width: 21px;
   height: 21px;
   font-size: 21px;
-}
-
-.header-search-input:focus {
 }

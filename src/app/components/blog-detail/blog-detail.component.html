@@ -1,2 +1,62 @@
-<p>blog-detail works!</p>
-<p>{{ service.singleblog.text }}</p>
+<div class="px-5">
+  <div
+    class="lg:w-3/5 w-4/5 bg-gradient-to-bl dark:from-stone-800 dark:to-stone-700 from-stone-200 to-stone-100 rounded-md border mt-4 p-2 dark:border-stone-700 border-stone-200"
+  >
+    <div class="profile flex items-center gap-2 h-10">
+      <div *ngIf="service.singleblog?.profile?.profilePic">
+        <img
+          src="http://127.0.0.1:8000{{ service.singleblog.profile.profilePic }}"
+          class="w-10 h-10 rounded-full"
+        />
+      </div>
+      <div *ngIf="!service.singleblog?.profile?.profilePic">
+        <img
+          src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
+          class="w-10 h-10 rounded-full"
+        />
+      </div>
+      <div>
+        {{ service.singleblog.profile.user.username }}
+      </div>
+      <div>•</div>
+      <div>{{ service.singleblog.updated | timeAgo }}</div>
+    </div>
+    <p class="my-3">{{ service.singleblog.text }}</p>
+    <div *ngIf="service.singleblog.file">
+      <img
+        src="http://127.0.0.1:8000{{ service.singleblog.file }}"
+        class="w-2/5 rounded-md"
+      />
+    </div>
+    <div class="interaction">
+      <div
+        class="border-t w-full dark:border-stone-700 border-stone-200 mt-3 mb-1"
+      ></div>
+      <div class="interactions flex items-center justify-around flex-wrap">
+        <!-- Comments -->
+        <div class="flex items-center">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="chat-icon"
+            fontIcon="chatbubble"
+          ></mat-icon>
+          <span> 24 </span>
+        </div>
+        <!-- Likes -->
+        <div class="flex items-center">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="favorite"
+          ></mat-icon>
+          <span>
+            {{ service.singleblog.likes?.length || "0" }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="border-t w-full dark:border-stone-700 border-stone-200 mt-1"
+      ></div>
+    </div>
+  </div>
+</div>

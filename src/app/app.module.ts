@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,14 @@ import { BlogsComponent } from './components/blogs/blogs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
+
+@Pipe({
+  name: 'timeAgo',
+  pure: false,
+})
+export class TimeAgoExtendsPipe extends TimeAgoPipe {}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +29,7 @@ import { BlogDetailComponent } from './components/blog-detail/blog-detail.compon
     FooterComponent,
     BlogComponent,
     BlogsComponent,
+    TimeAgoExtendsPipe,
     BlogDetailComponent,
   ],
   imports: [

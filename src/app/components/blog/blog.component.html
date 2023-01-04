@@ -19,7 +19,7 @@
         {{ blog.profile.user.username }}
       </div>
       <div>•</div>
-      <div>{{ blog.updated }}</div>
+      <div>{{ blog.updated | timeAgo }}</div>
     </div>
     <h4 class="mt-5">{{ blog.text }}</h4>
     <div *ngIf="blog.file">
@@ -28,20 +28,35 @@
         class="lg:w-2/5 w-3/5 mt-1 rounded-md"
       />
     </div>
-    <div class="interactions flex items-center flex-wrap">
+  </a>
+  <div class="interaction">
+    <div
+      class="border-t w-full dark:border-stone-700 border-stone-200 mt-3 mb-1"
+    ></div>
+    <div class="interactions flex items-center justify-around flex-wrap">
       <!-- Comments -->
-      <div></div>
+      <div class="flex items-center">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="chat-icon"
+          fontIcon="chatbubble"
+        ></mat-icon>
+        <span> 24 </span>
+      </div>
       <!-- Likes -->
-      <div class="text-lg flex items-center gap-1">
-        <span>
-          {{ blog.likes?.length || "0" }}
-        </span>
+      <div class="flex items-center">
         <mat-icon
           aria-hidden="false"
           aria-label="favorite-icon"
           fontIcon="favorite"
         ></mat-icon>
+        <span>
+          {{ blog.likes?.length || "0" }}
+        </span>
       </div>
     </div>
-  </a>
+    <div
+      class="border-t w-full dark:border-stone-700 border-stone-200 mt-1"
+    ></div>
+  </div>
 </div>

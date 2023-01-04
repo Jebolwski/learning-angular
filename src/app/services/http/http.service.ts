@@ -11,6 +11,7 @@ export class HttpService {
   FightingMovies: Movie[] = [];
   blogs: Blog[] = [];
   singleblog!: Blog;
+  darkMode!: number;
 
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
@@ -24,8 +25,15 @@ export class HttpService {
       .get<Blog[]>(this.baseApiUrl + 'blogs/all')
       .subscribe((res: any) => {
         this.blogs = res.msg;
-        console.log(res.msg);
       });
+  }
+
+  toggleDarkMode(): void {
+    if (this.darkMode == 1) {
+      this.darkMode = 0;
+    } else {
+      this.darkMode = 1;
+    }
   }
 
   getABlog(id: string): void {
@@ -33,7 +41,6 @@ export class HttpService {
       .get<Blog[]>(this.baseApiUrl + 'blogs/' + id)
       .subscribe((res: any) => {
         this.singleblog = res.msg;
-        console.log(res.msg);
       });
   }
 

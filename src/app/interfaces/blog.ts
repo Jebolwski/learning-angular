@@ -6,6 +6,6 @@ export interface Blog {
   text: string;
   file: string;
   likes: any;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
 }
