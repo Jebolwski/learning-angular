@@ -11,7 +11,7 @@ export class HttpService {
   FightingMovies: Movie[] = [];
   blogs: Blog[] = [];
   singleblog!: Blog;
-  darkMode!: number;
+  darkMode: string = 'false';
 
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
@@ -29,11 +29,17 @@ export class HttpService {
   }
 
   toggleDarkMode(): void {
-    if (this.darkMode == 1) {
-      this.darkMode = 0;
+    if (this.darkMode == 'true') {
+      this.darkMode = 'false';
+      localStorage.setItem('theme', 'false');
     } else {
-      this.darkMode = 1;
+      this.darkMode = 'true';
+      localStorage.setItem('theme', 'true');
     }
+  }
+
+  setDarkMode(mode: string): void {
+    this.darkMode = mode;
   }
 
   getABlog(id: string): void {

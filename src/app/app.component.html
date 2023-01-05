@@ -1,20 +1,22 @@
-<div
-  class="text-black dark:text-white min-h-screen bg-stone-100 dark:bg-stone-800"
->
-  <app-header></app-header>
-  <div>
-    <router-outlet></router-outlet>
-    <div
-      class="up-button items-center hidden justify-center cursor-pointer bg-stone-200 dark:bg-stone-700 border border-stone-100 dark:border-stone-800 shadow rounded-full fixed right-4 bottom-4 w-9 h-9"
-      (click)="scrollToTop()"
-    >
-      <mat-icon
-        aria-hidden="false"
-        aria-label="less-icon"
-        fontIcon="expand_less"
-        style="width: auto; height: auto"
-      ></mat-icon>
+<body [class.dark]="service.darkMode == 'true'">
+  <div
+    class="text-black dark:text-white min-h-screen bg-stone-100 dark:bg-stone-800"
+  >
+    <app-header></app-header>
+    <div>
+      <router-outlet></router-outlet>
+      <div
+        class="up-button items-center hidden justify-center cursor-pointer bg-stone-200 dark:bg-stone-700 border border-stone-300 dark:border-stone-600 shadow rounded-full fixed right-4 bottom-4 w-9 h-9"
+        (click)="scrollToTop()"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="less-icon"
+          fontIcon="expand_less"
+          style="width: auto; height: auto"
+        ></mat-icon>
+      </div>
     </div>
+    <app-footer></app-footer>
   </div>
-  <app-footer></app-footer>
-</div>
+</body>

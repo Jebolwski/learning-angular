@@ -22,7 +22,7 @@
         class="header-search-input w-full pl-9 bg-stone-50 border border-stone-300 text-stone-900 rounded-lg rounded-r-none p-1 dark:bg-stone-800 dark:border-stone-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-stone-700 focus-visible:outline-stone-300"
       />
       <button
-        class="bg-stone-900 p-1 rounded-r-lg border border-stone-700 flex items-center justify-center"
+        class="dark:bg-stone-900 bg-stone-100 border-stone-200 p-1 rounded-r-lg border dark:border-stone-700 flex items-center justify-center"
       >
         <mat-icon
           aria-hidden="false"
@@ -33,6 +33,28 @@
       </button>
     </div>
     <div class="flex items-center gap-3">
+      <div
+        (click)="service.toggleDarkMode()"
+        class="flex items-center cursor-pointer"
+        *ngIf="service.darkMode == 'true'"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="light-icon"
+          fontIcon="light_mode"
+        ></mat-icon>
+      </div>
+      <div
+        (click)="service.toggleDarkMode()"
+        *ngIf="service.darkMode == 'false'"
+        class="flex items-center cursor-pointer"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="dark-icon"
+          fontIcon="dark_mode"
+        ></mat-icon>
+      </div>
       <div class="flex items-center gap-1">
         <mat-icon
           aria-hidden="false"
