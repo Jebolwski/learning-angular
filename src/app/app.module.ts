@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @Pipe({
   name: 'timeAgo',
@@ -31,6 +32,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BlogsComponent,
     TimeAgoExtendsPipe,
     BlogDetailComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

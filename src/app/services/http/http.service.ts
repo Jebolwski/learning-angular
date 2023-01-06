@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
+import { Profile } from 'src/app/interfaces/profile';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,6 +11,8 @@ export class HttpService {
   ComedyMovies: Movie[] = [];
   FightingMovies: Movie[] = [];
   blogs: Blog[] = [];
+  profile!: Profile;
+  userProfile!: Profile;
   singleblog!: Blog;
   darkMode: string = 'false';
 
@@ -56,5 +59,15 @@ export class HttpService {
       this.ComedyMovies = res.slice(50, 70);
       this.FightingMovies = res.slice(70, 85);
     });
+  }
+
+  getProfile(id: string): void {
+    this.http
+      .get<Profile>(this.baseApiUrl + 'profile/' + id)
+      .subscribe((res: any) => {
+        console.log(res);
+
+        this.profile = res.msg;
+      });
   }
 }
