@@ -1,8 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
 import { Profile } from 'src/app/interfaces/profile';
+import jwtDecode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +16,7 @@ export class HttpService {
   userProfile!: Profile;
   singleblog!: Blog;
   darkMode: string = 'false';
+  user!: any;
 
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
@@ -69,5 +71,22 @@ export class HttpService {
 
         this.profile = res.msg;
       });
+  }
+
+  loginUser(data: { username: string; password: string }): void {
+    this.http.post<any>(this.baseApiUrl + 'token', data).subscribe((res) => {
+      console.log(res);
+      console.log(res.access);
+
+      this.user = jwtDecode(res.access);
+      console.log(this.user);
+      localStorage.setItem('authTokens', JSON.stringify(res));
+    });
+  }
+
+  logoutUser(): void {
+    console.log('messi');
+    this.user = null;
+    localStorage.removeItem('authTokens');
   }
 }

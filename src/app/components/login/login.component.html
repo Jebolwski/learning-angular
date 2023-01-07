@@ -1,0 +1,35 @@
+<div class="px-5 pt-5">
+  <div
+    class="bg-gradient-to-tr rounded-md shadow-md p-2 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
+  >
+    <div class="flex justify-center">
+      <form
+        class="lg:w-4/5 w-full"
+        #LoginForm="ngForm"
+        (ngSubmit)="service.loginUser(LoginForm.value)"
+      >
+        <p>username</p>
+        <input
+          type="text"
+          name="username"
+          class="bg-gray-50 mb-4 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          ngModel
+        />
+        <p>password</p>
+        <input
+          type="password"
+          name="password"
+          class="bg-gray-50 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          ngModel
+        />
+        <div class="flex justify-center mt-3">
+          <input
+            type="submit"
+            value="Login"
+            class="bg-gradient-to-tl from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-1 text-lg rounded-md"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @Pipe({
   name: 'timeAgo',
@@ -33,6 +35,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     TimeAgoExtendsPipe,
     BlogDetailComponent,
     ProfileComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

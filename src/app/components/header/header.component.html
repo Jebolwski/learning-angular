@@ -78,12 +78,22 @@
           fontIcon="settings"
         ></mat-icon>
       </div>
-      <a routerLink="profile/4">
-        <img
-          src="http://127.0.0.1:8000/media/blog_file/Ahmet.png"
-          class="w-8 h-8 rounded-full"
-        />
-      </a>
+      <div *ngIf="service.user">
+        <div
+          (click)="service.logoutUser()"
+          class="bg-gradient-to-tl cursor-pointer from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-[1px] rounded-md"
+        >
+          Logout
+        </div>
+      </div>
+      <div *ngIf="!service.user">
+        <a
+          routerLink="/login"
+          class="bg-gradient-to-tl from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-[1px] rounded-md"
+        >
+          Login
+        </a>
+      </div>
     </div>
   </div>
 </div>

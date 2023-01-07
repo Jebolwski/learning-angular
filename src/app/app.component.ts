@@ -1,5 +1,6 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
 import { HttpService } from './services/http/http.service';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -26,5 +27,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     let theme = localStorage.getItem('theme');
     this.service.setDarkMode(theme!);
+    if (localStorage.getItem('authTokens')) {
+      console.log('mressi');
+      this.service.user = jwtDecode(localStorage.getItem('authTokens') || '');
+    }
   }
 }
