@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
     let theme = localStorage.getItem('theme');
     this.service.setDarkMode(theme!);
     if (localStorage.getItem('authTokens')) {
-      console.log('mressi');
       this.service.user = jwtDecode(localStorage.getItem('authTokens') || '');
     }
   }

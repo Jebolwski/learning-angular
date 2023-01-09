@@ -1,8 +1,11 @@
 <div
-  class="dark:text-white text-black dark:bg-stone-700 p-4 bg-stone-200 rounded-md mt-3 bg-gradient-to-tr from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
+  class="dark:text-white w-full text-black dark:bg-stone-700 p-4 bg-stone-200 rounded-md mt-3 bg-gradient-to-tr from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
 >
   <a routerLink="/blog/{{ blog.id }}">
-    <div class="profile flex items-center gap-2 h-10">
+    <a
+      routerLink="/profile/{{ blog.profile.id }}"
+      class="profile flex items-center gap-2 h-10"
+    >
       <div *ngIf="blog?.profile?.profilePic">
         <img
           src="http://127.0.0.1:8000{{ blog.profile.profilePic }}"
@@ -20,7 +23,7 @@
       </div>
       <div>•</div>
       <div>{{ blog.updated | timeAgo }}</div>
-    </div>
+    </a>
     <h4 class="mt-5">{{ blog.text }}</h4>
     <div *ngIf="blog.file">
       <img

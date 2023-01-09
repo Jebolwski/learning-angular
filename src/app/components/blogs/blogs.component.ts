@@ -12,4 +12,9 @@ export class BlogsComponent implements OnInit {
   ngOnInit(): void {
     this.service.getBlogs();
   }
+
+  toggleAddBlog() {
+    let div = document.querySelector('.add-blog-toggle');
+    div?.classList.toggle('hidden');
+  }
 }

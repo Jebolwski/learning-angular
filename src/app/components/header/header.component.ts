@@ -9,4 +9,9 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class HeaderComponent {
   constructor(public service: HttpService) {}
+
+  toggleProfileDiv() {
+    let div = document.querySelector('.profile-toggle-div');
+    div!.classList.toggle('hidden');
+  }
 }

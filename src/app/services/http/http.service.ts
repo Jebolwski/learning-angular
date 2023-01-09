@@ -4,6 +4,7 @@ import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
 import { Profile } from 'src/app/interfaces/profile';
 import jwtDecode from 'jwt-decode';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +24,7 @@ export class HttpService {
 
   private baseApiUrl: string = 'http://127.0.0.1:8000/api/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getBlogs(): void {
     this.http
@@ -63,24 +64,22 @@ export class HttpService {
     });
   }
 
-  getProfile(id: string): void {
+  getProfile(id: number): void {
+    console.log('ÇEK PRFİLİ');
+
     this.http
       .get<Profile>(this.baseApiUrl + 'profile/' + id)
       .subscribe((res: any) => {
         console.log(res);
-
         this.profile = res.msg;
       });
   }
 
   loginUser(data: { username: string; password: string }): void {
     this.http.post<any>(this.baseApiUrl + 'token', data).subscribe((res) => {
-      console.log(res);
-      console.log(res.access);
-
       this.user = jwtDecode(res.access);
-      console.log(this.user);
       localStorage.setItem('authTokens', JSON.stringify(res));
+      this.router.navigate(['/']);
     });
   }
 

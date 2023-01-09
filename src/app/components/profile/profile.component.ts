@@ -14,8 +14,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '0';
-    if (this.id !== '0') {
-      this.service.getProfile(this.id);
+    if (parseInt(this.id) > 0) {
+      this.service.getProfile(parseInt(this.id));
+      console.log(this.service.profile);
     }
   }
 }

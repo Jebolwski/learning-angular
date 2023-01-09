@@ -71,19 +71,46 @@
         ></mat-icon>
         <p>Bookmarks</p>
       </div>
-      <div class="flex items-center">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="favorite-icon"
-          fontIcon="settings"
-        ></mat-icon>
-      </div>
-      <div *ngIf="service.user">
+
+      <div *ngIf="service.user" class="relative">
+        <img
+          src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+          class="w-8 h-8 rounded-full cursor-pointer"
+          (click)="toggleProfileDiv()"
+        />
         <div
-          (click)="service.logoutUser()"
-          class="bg-gradient-to-tl cursor-pointer from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-[1px] rounded-md"
+          class="profile-toggle-div hidden absolute right-0 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
         >
-          Logout
+          <a
+            routerLink="/profile/{{ service.user.profile.id }}"
+            class="flex cursor-pointer gap-2 items-center"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="user-icon"
+              fontIcon="user"
+            ></mat-icon>
+            <p>Profile</p>
+          </a>
+          <div class="flex cursor-pointer gap-2 items-center">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="favorite-icon"
+              fontIcon="settings"
+            ></mat-icon>
+            <p>Settings</p>
+          </div>
+          <div
+            class="flex cursor-pointer gap-2 items-center"
+            (click)="service.logoutUser()"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="favorite-icon"
+              fontIcon="logout"
+            ></mat-icon>
+            <div>Logout</div>
+          </div>
         </div>
       </div>
       <div *ngIf="!service.user">
