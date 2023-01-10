@@ -56,6 +56,15 @@ export class HttpService {
       });
   }
 
+  addABlog(data: { text: string; file: File; profile: number }): void {
+    data['profile'] = this.user.profile.id;
+    this.http
+      .post(this.baseApiUrl + 'blogs/add', data)
+      .subscribe((res: any) => {
+        this.getBlogs();
+      });
+  }
+
   getMovies(): void {
     this.http.get<Movie[]>(this.apiUrl).subscribe((res: Movie[]) => {
       this.ActionMovies = res.slice(0, 50);

@@ -1,40 +1,55 @@
 <div class="dark:bg-stone-800 bg-stone-100 px-2 pt-4">
   <div class="flex justify-center">
     <div
-      class="add-blog-div w-7/12 rounded-md bg-gradient-to-br from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800"
+      class="add-blog-div w-full md:w-4/5 lg:w-3/5 rounded-md bg-gradient-to-br from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800"
     >
       <div
-        class="p-1 text-lg border border-stone-200 dark:border-stone-700 rounded-md"
+        class="p-1 text-lg border border-stone-200 dark:border-stone-700 rounded-md cursor-pointer"
+        (click)="toggleAddBlog()"
       >
         <div class="flex justify-between items-center">
           <p>Add a Blog</p>
-          <div
-            class="hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full p-1"
-            (click)="toggleAddBlog()"
-          >
-            down
+          <div class="flex items-center justify-center">
+            <mat-icon fontIcon="expand_more" class="scale-125"></mat-icon>
           </div>
         </div>
       </div>
-      <div class="add-blog-toggle hidden">
-        <textarea
-          class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border border-stone-200 dark:border-stone-700"
-          name="text"
-          placeholder="What's up?"
-          rows="8"
-        ></textarea>
-        <input
-          type="submit"
-          value="Add Blog"
-          class="bg-gradient-to-br from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md p-1 border border-stone-300 dark:border-stone-600"
-        />
+      <div class="add-blog-toggle hidden p-2">
+        <form
+          #addBlogFrom="ngForm"
+          (ngSubmit)="service.addABlog(addBlogFrom.value)"
+        >
+          <textarea
+            class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border border border-stone-300 dark:border-stone-600"
+            name="text"
+            placeholder="What's up?"
+            rows="8"
+            ngModel
+          ></textarea>
+          <div>
+            <input
+              type="file"
+              name="file"
+              (change)="onChange($event)"
+              class="bg-gradient-to-tr mb-3 dark:from-stone-700 dark:to-stone-800 from-stone-200 to-stone-100 border border-stone-300 dark:border-stone-600 w-full rounded-md p-1"
+              ngModel
+            />
+          </div>
+          <input
+            type="submit"
+            value="Add Blog"
+            class="bg-gradient-to-br cursor-pointer w-full from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md p-1 border border-stone-300 dark:border-stone-600"
+          />
+        </form>
       </div>
     </div>
   </div>
   <div class="flex justify-center">
-    <div *ngIf="service.blogs">
-      <div *ngFor="let blog of service.blogs">
-        <app-blog [blog]="blog"></app-blog>
+    <div class="w-full md:w-4/5 lg:w-3/5">
+      <div *ngIf="service.blogs">
+        <div *ngFor="let blog of service.blogs">
+          <app-blog [blog]="blog"></app-blog>
+        </div>
       </div>
     </div>
   </div>

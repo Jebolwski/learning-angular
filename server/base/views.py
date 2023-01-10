@@ -109,12 +109,12 @@ def CreateBlog(request):
 
     blog = Blog.objects.create(
         profile=profile,
-        text=request.data.get('description'),
+        text=request.data.get('text'),
         file=request.data.get('file'),
     )
 
     #?Description interests
-    desc = request.data.get('description')
+    desc = request.data.get('text')
     desc = desc.strip()
     desc = desc.replace('.','')
     desc = desc.replace(',','')
@@ -144,8 +144,8 @@ def EditBlog(request,pk):
         fake_data['file']=None
     serializer=BlogSerializer(blog,data=fake_data)
     #?Description interests
-    if request.data.get('description'):
-        desc = request.data.get('description')
+    if request.data.get('text'):
+        desc = request.data.get('text')
         desc = desc.replace('.','')
         desc = desc.replace(',','')
         desc = desc.split(' ')
