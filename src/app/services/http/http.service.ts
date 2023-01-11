@@ -52,16 +52,27 @@ export class HttpService {
     this.http
       .get<Blog[]>(this.baseApiUrl + 'blogs/' + id)
       .subscribe((res: any) => {
+        console.log('geldi', res);
+
         this.singleblog = res.msg;
       });
   }
 
-  addABlog(data: { text: string; file: File; profile: number }): void {
-    data['profile'] = this.user.profile.id;
+  addABlog(data: FormData): void {
+    console.log(data, 'dataa');
+
     this.http
       .post(this.baseApiUrl + 'blogs/add', data)
       .subscribe((res: any) => {
         this.getBlogs();
+      });
+  }
+
+  deleteABlog(id: number): void {
+    this.http
+      .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete')
+      .subscribe((res: any) => {
+        console.log(res);
       });
   }
 

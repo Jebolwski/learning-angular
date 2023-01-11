@@ -114,17 +114,19 @@ def CreateBlog(request):
     )
 
     #?Description interests
-    desc = request.data.get('text')
-    desc = desc.strip()
-    desc = desc.replace('.','')
-    desc = desc.replace(',','')
-    desc = desc.split(' ')
-    for i in desc:
-        i=i.lower()
-        for j in Interest.objects.filter(Q(tr_name__startswith=i[0]) | Q(en_name__endswith=i[0])):
-            if difflib.SequenceMatcher(None,j.tr_name.lower(),i.lower()).ratio()>=0.6 or difflib.SequenceMatcher(None,j.en_name.lower(),i.lower()).ratio()>=0.6:
-                profile.interests.add(j.id)
-
+    try:
+        desc = request.data.get('text')
+        desc = desc.strip()
+        desc = desc.replace('.','')
+        desc = desc.replace(',','')
+        desc = desc.split(' ')
+        for i in desc:
+            i=i.lower()
+            for j in Interest.objects.filter(Q(tr_name__startswith=i[0]) | Q(en_name__endswith=i[0])):
+                if difflib.SequenceMatcher(None,j.tr_name.lower(),i.lower()).ratio()>=0.6 or difflib.SequenceMatcher(None,j.en_name.lower(),i.lower()).ratio()>=0.6:
+                    profile.interests.add(j.id)
+    except:
+        pass
     
     serializer=BlogSerializer(blog,many=False)
     return Response({"msg":serializer.data,"success_msg":"Successfully created blog 🚀"},status=200)

@@ -17,15 +17,18 @@ export class BlogsComponent implements OnInit {
 
   onChange(event: any): void {
     this.file = event.target.files[0];
-    console.log('para messi', this.file);
+    console.log('para messi', this.file, this.file.name);
+    console.log(this.service.user.profile.id);
   }
 
-  addBlog(data: { text: string; file: File; profile: number }): void {
-    console.log(this.file);
-
-    data['file'] = this.file;
-    console.log(data);
-    this.service.addABlog(data);
+  addBlog(data: { text: string; profile: number }): void {
+    let formdata: FormData = new FormData();
+    formdata.append('text', data.text);
+    if (this.file) {
+      formdata.append('file', this.file, this.file.name);
+    }
+    formdata.append('profile', this.service.user.profile.id);
+    this.service.addABlog(formdata);
   }
 
   toggleAddBlog() {

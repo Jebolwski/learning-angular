@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MoviesComponent } from './components/movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MovieComponent } from './components/movie/movie.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
@@ -16,6 +14,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { DeleteBlogComponent } from './components/delete-blog/delete-blog.component';
 
 @Pipe({
   name: 'timeAgo',
@@ -27,8 +26,6 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
   declarations: [
     AppComponent,
     HeaderComponent,
-    MoviesComponent,
-    MovieComponent,
     FooterComponent,
     BlogComponent,
     BlogsComponent,
@@ -36,6 +33,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BlogDetailComponent,
     ProfileComponent,
     LoginComponent,
+    DeleteBlogComponent,
   ],
   imports: [
     BrowserModule,

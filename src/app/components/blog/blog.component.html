@@ -2,28 +2,35 @@
   class="dark:text-white text-black dark:bg-stone-700 p-4 bg-stone-200 rounded-md mt-3 bg-gradient-to-tr from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
 >
   <a routerLink="/blog/{{ blog.id }}">
-    <a
-      routerLink="/profile/{{ blog.profile.id }}"
-      class="profile flex items-center gap-2 h-10"
-    >
-      <div *ngIf="blog?.profile?.profilePic">
-        <img
-          src="http://127.0.0.1:8000{{ blog.profile.profilePic }}"
-          class="w-10 h-10 rounded-full"
-        />
+    <div class="flex justify-between">
+      <a
+        routerLink="/profile/{{ blog.profile.id }}"
+        class="profile flex items-center gap-2 h-10"
+      >
+        <div *ngIf="blog?.profile?.profilePic">
+          <img
+            src="http://127.0.0.1:8000{{ blog.profile.profilePic }}"
+            class="w-10 h-10 rounded-full"
+          />
+        </div>
+        <div *ngIf="!blog?.profile?.profilePic">
+          <img
+            src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
+            class="w-10 h-10 rounded-full"
+          />
+        </div>
+        <div>
+          {{ blog.profile.user.username }}
+        </div>
+        <div>•</div>
+        <div>{{ blog.updated | timeAgo }}</div>
+      </a>
+      <div *ngIf="service.user.profile.id == blog.profile.id">
+        <a routerLink="/blog/{{ blog.id }}/delete" title="Delete blog"
+          ><mat-icon fontIcon="delete" class="text-red-500"></mat-icon
+        ></a>
       </div>
-      <div *ngIf="!blog?.profile?.profilePic">
-        <img
-          src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
-          class="w-10 h-10 rounded-full"
-        />
-      </div>
-      <div>
-        {{ blog.profile.user.username }}
-      </div>
-      <div>•</div>
-      <div>{{ blog.updated | timeAgo }}</div>
-    </a>
+    </div>
     <h4 class="mt-5">{{ blog.text }}</h4>
     <div *ngIf="blog.file">
       <img
