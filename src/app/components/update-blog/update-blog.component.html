@@ -1,0 +1,55 @@
+<div class="flex justify-center mt-4 px-2">
+  <div
+    class="bg-gradient-to-br lg:w-4/5 w-full p-3 rounded-md from-stone-200 to-stone-100 dark:from-stone-800 dark:to-stone-700 border border-stone-300 dark:border-stone-600"
+  >
+    <form
+      #updateBlogFrom="ngForm"
+      (ngSubmit)="updateBlog(updateBlogFrom.value)"
+    >
+      <textarea
+        class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border border border-stone-300 dark:border-stone-600"
+        name="text"
+        id="text"
+        rows="8"
+        [minlength]="3"
+        [maxlength]="180"
+        ngModel="{{ service.singleblog.text }}"
+      >
+      </textarea>
+      <div>
+        <div
+          class="blogs-file bg-stone-200 dark:bg-stone-800 flex items-center justify-between rounded-md border border-stone-100 dark:border-stone-700 mt-2 p-1"
+          *ngIf="service.singleblog.file"
+        >
+          <p>Uploaded photo '{{ service.singleblog.file }}'</p>
+          <mat-icon
+            fontIcon="delete"
+            class="text-orange-800 cursor-pointer"
+            (click)="removeBlogsFile()"
+          ></mat-icon>
+        </div>
+        <button
+          (click)="openFileUpload()"
+          class="p-1 rounded-md my-2 bg-gradient-to-b from-stone-200 to-stone-100 dark:from-stone-800 dark:to-stone-700"
+        >
+          <div *ngIf="service.singleblog.file">Change File</div>
+          <div *ngIf="!service.singleblog.file">Upload File</div>
+        </button>
+        <input
+          type="file"
+          name="file"
+          id="file"
+          (change)="onChange($event)"
+          class="hidden file-upload bg-gradient-to-tr mb-3 dark:from-stone-700 dark:to-stone-800 from-stone-200 to-stone-100 border border-stone-300 dark:border-stone-600 w-full rounded-md p-1"
+          [defaultValue]="service.singleblog.file"
+          ngModel
+        />
+      </div>
+      <input
+        type="submit"
+        value="Add Blog"
+        class="bg-gradient-to-br cursor-pointer w-full from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md p-1 border border-stone-300 dark:border-stone-600"
+      />
+    </form>
+  </div>
+</div>

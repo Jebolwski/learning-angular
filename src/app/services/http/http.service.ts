@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
 import { Profile } from 'src/app/interfaces/profile';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +25,11 @@ export class HttpService {
 
   private baseApiUrl: string = 'http://127.0.0.1:8000/api/';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   getBlogs(): void {
     this.http
@@ -52,8 +57,6 @@ export class HttpService {
     this.http
       .get<Blog[]>(this.baseApiUrl + 'blogs/' + id)
       .subscribe((res: any) => {
-        console.log('geldi', res);
-
         this.singleblog = res.msg;
       });
   }
@@ -73,6 +76,16 @@ export class HttpService {
       .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete')
       .subscribe((res: any) => {
         console.log(res);
+        this.router.navigate(['/']);
+      });
+  }
+
+  updateABlog(id: number, data: FormData) {
+    this.http
+      .put(this.baseApiUrl + 'blogs/' + id + '/edit', data)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.toastr.success(res['success_msg']);
       });
   }
 

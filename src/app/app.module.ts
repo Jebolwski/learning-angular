@@ -15,7 +15,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { DeleteBlogComponent } from './components/delete-blog/delete-blog.component';
-
+import { UpdateBlogComponent } from './components/update-blog/update-blog.component';
+import { ToastrModule } from 'ngx-toastr';
 @Pipe({
   name: 'timeAgo',
   pure: false,
@@ -34,6 +35,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     ProfileComponent,
     LoginComponent,
     DeleteBlogComponent,
+    UpdateBlogComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,12 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BrowserAnimationsModule,
     MatIconModule,
     FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      closeButton: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

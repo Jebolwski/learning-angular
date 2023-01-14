@@ -26,8 +26,11 @@
         <div>{{ blog.updated | timeAgo }}</div>
       </a>
       <div *ngIf="service.user.profile.id == blog.profile.id">
+        <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"
+          ><mat-icon fontIcon="edit_note" class="text-blue-400"></mat-icon
+        ></a>
         <a routerLink="/blog/{{ blog.id }}/delete" title="Delete blog"
-          ><mat-icon fontIcon="delete" class="text-red-500"></mat-icon
+          ><mat-icon fontIcon="delete_sweep" class="text-red-400"></mat-icon
         ></a>
       </div>
     </div>
