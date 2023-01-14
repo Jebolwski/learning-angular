@@ -12,6 +12,7 @@ export class UpdateBlogComponent implements OnInit {
 
   file!: any;
   id!: string;
+  removefile: string = 'false';
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get('id') || '0';
@@ -20,9 +21,11 @@ export class UpdateBlogComponent implements OnInit {
 
   onChange(event: any): void {
     this.file = event.target.files[0];
+    this.removefile = 'false';
   }
 
   removeBlogsFile(): void {
+    this.removefile = 'true';
     $('.blogs-file').remove();
     this.file = null;
   }
@@ -32,9 +35,11 @@ export class UpdateBlogComponent implements OnInit {
   }
 
   updateBlog(data: { text: string; profile: number }): void {
+    console.log(this.removefile);
+
     let formdata = new FormData();
     console.log(data, this.file);
-
+    formdata.append('removefile', this.removefile);
     formdata.append('text', data.text);
     if (this.file) {
       formdata.append('file', this.file, this.file.name);

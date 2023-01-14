@@ -64,4 +64,6 @@ class Blog(models.Model):
             fake_data['text']=self.text
         if fake_data.get("file")==None:
             fake_data['file']=self.file
+        if fake_data.get('removefile')=="true":
+            fake_data['file']=None
         return fake_data 
