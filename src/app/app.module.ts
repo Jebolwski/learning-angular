@@ -49,6 +49,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       closeButton: true,
+      progressBar: true,
     }),
   ],
   providers: [],

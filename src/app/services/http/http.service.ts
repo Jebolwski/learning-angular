@@ -62,12 +62,11 @@ export class HttpService {
   }
 
   addABlog(data: FormData): void {
-    console.log(data, 'dataa');
-
     this.http
       .post(this.baseApiUrl + 'blogs/add', data)
       .subscribe((res: any) => {
         this.getBlogs();
+        this.toastr.success(res['success_msg']);
       });
   }
 
@@ -75,7 +74,7 @@ export class HttpService {
     this.http
       .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete')
       .subscribe((res: any) => {
-        console.log(res);
+        this.toastr.success(res['msg']);
         this.router.navigate(['/']);
       });
   }

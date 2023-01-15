@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http/http.service';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
@@ -9,10 +9,19 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class BlogsComponent implements OnInit {
   constructor(public service: HttpService) {}
 
-  file!: File;
+  file!: any;
 
   ngOnInit(): void {
     this.service.getBlogs();
+  }
+
+  openFileUpload(): void {
+    $('.file-upload').trigger('click');
+  }
+
+  removeBlogsFile(): void {
+    $('.blogs-file').remove();
+    this.file = null;
   }
 
   onChange(event: any): void {

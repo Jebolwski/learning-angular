@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpService } from 'src/app/services/http/http.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,6 @@ export class HeaderComponent {
   constructor(public service: HttpService) {}
 
   toggleProfileDiv() {
-    let div = document.querySelector('.profile-toggle-div');
-    div!.classList.toggle('hidden');
+    $('.profile-toggle-div').toggle(200);
   }
 }
