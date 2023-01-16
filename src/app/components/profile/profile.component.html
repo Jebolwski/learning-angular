@@ -1,11 +1,28 @@
 <div class="px-5">
   <div
+    class="big-profile-picture bg-stone-300/60 dark:bg-stone-700/60 fixed top-[48px] left-0 w-full hidden h-full"
+  >
+    <div class="flex justify-center items-center h-full">
+      <mat-icon
+        fontIcon="close"
+        (click)="toggleBigProfilePicture()"
+        class="scale-125 rounded-full cursor-pointer right-5 top-5 absolute hover:bg-stone-200 dark:hover:bg-stone-700 p-1"
+      ></mat-icon>
+      <img
+        src="http://127.0.0.1:8000{{ service.profile.profilePic }}"
+        class="w-72 h-72 rounded-full border-2 border-stone-200 dark:border-stone-700 -mt-10"
+        alt="{{ service.profile.user.username }}"
+      />
+    </div>
+  </div>
+  <div
     class="bg-gradient-to-bl dark:from-stone-800 dark:to-stone-700 from-stone-200 to-stone-100 rounded-md border mt-4 p-2 dark:border-stone-700 border-stone-200"
   >
     <div class="flex gap-3">
       <img
+        (click)="toggleBigProfilePicture()"
         src="http://127.0.0.1:8000{{ service.profile.profilePic }}"
-        class="w-10 h-10 rounded-full border border-stone-200 dark:border-stone-700"
+        class="w-10 h-10 cursor-pointer rounded-full border border-stone-200 dark:border-stone-700"
       />
       <div>
         <div class="flex items-center gap-4 pt-1">

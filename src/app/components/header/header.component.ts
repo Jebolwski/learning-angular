@@ -12,6 +12,6 @@ export class HeaderComponent {
   constructor(public service: HttpService) {}
 
   toggleProfileDiv() {
-    $('.profile-toggle-div').toggle(200);
+    $('.profile-toggle-div').fadeToggle(400);
   }
 }

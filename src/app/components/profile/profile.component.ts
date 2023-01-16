@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-profile',
@@ -18,5 +19,9 @@ export class ProfileComponent implements OnInit {
       this.service.getProfile(parseInt(this.id));
       console.log(this.service.profile);
     }
+  }
+
+  toggleBigProfilePicture(): void {
+    $('.big-profile-picture').fadeToggle(200);
   }
 }

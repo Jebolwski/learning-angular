@@ -25,7 +25,10 @@
         <div>•</div>
         <div>{{ blog.updated | timeAgo }}</div>
       </a>
-      <div *ngIf="service.user.profile.id == blog.profile.id">
+      <div
+        *ngIf="service.user.profile.id == blog.profile.id"
+        class="flex gap-2 h-min"
+      >
         <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"
           ><mat-icon fontIcon="edit_note" class="text-blue-400"></mat-icon
         ></a>
