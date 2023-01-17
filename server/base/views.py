@@ -452,49 +452,21 @@ def ConfirmMail(request,code):
         else:
             return Response ({"msg":"Cant change mail right now. 😒"},status=400)
 
-def get_random_string(length):
-    import string
-    import random
-    # choose from all lowercase letter
-    letters = string.ascii_lowercase
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
-    
 @api_view(['POST'])
-def LikeBlog(request,pk):
-    lang = request.data.get("language")
+def ToggleBlogLike(request,pk):
     blog = Blog.objects.get(id=pk)
-    profile = Profile.objects.filter(id=request.data.get("profile_id"))
+    profile = Profile.objects.filter(id=request.data.get("id"))
     #TODO Kullanıcıyı kontrol etme
     if len(profile)==0:
-        if lang == "en":
-            return Response ({"msg":"Profile not found. 😶"},status=400)
-        return Response ({"msg":"Kullanıcı bulunamadı. 😶"},status=400)
+        return Response ({"msg":"Profile not found. 😶"},status=404)
     profile = profile[0]
     #TODO Blogu beğenme
     if profile not in blog.likes.all():
         blog.likes.add(profile.id)
-        if lang == "en":
-            return Response ({"msg":"You liked the blog. 🌝","blog_data":BlogSerializer(blog).data},status=200)
-        return Response ({"msg":"Blogu beğendiniz. 🌝","blog_data":BlogSerializer(blog).data},status=200)
+        return Response ({"msg":"You liked the blog. 🌝","blog_data":BlogSerializer(blog).data},status=200)
     #TODO Blogu beğenmeyi geri çekme
     blog.likes.remove(profile.id)
-    if lang == "en":
-        return Response ({"msg":"You took your like back. 🤨","blog_data":BlogSerializer(blog).data},status=200)
-    return Response ({"msg":"Beğeninizi geri çektiniz. 🤨","blog_data":BlogSerializer(blog).data},status=200)
-
-def AnalyzeFollowings(pk):
-    profile = Profile.objects.get(id=pk)
-    array=[]
-    count=0
-    for i in profile.following.all():
-        count=0
-        for j in Blog.objects.filter(profile=Profile.objects.get(user=i)):
-            if profile in j.likes.all():
-                count+=1
-        array.append([i.username,count,i.id])
-    array.sort(key = lambda x: x[1],reverse=True)
-    return array
+    return Response ({"msg":"You took your like back. 🤨","blog_data":BlogSerializer(blog).data},status=200)
 
 @api_view(['GET'])
 def ReccomendFriend(request,pk):
@@ -545,7 +517,6 @@ def MostPopularTags(request,profile_id):
     
     return Response({"data":json.dumps(dictlist)},status=200)
 
-
 @api_view(["GET"])
 def TrendsBlogs(request,trend_text):
     result=[]
@@ -554,3 +525,27 @@ def TrendsBlogs(request,trend_text):
         if ("#"+trend_text) in blog.text.lower():
             result.append(BlogSerializer(blog).data)
     return Response({"data":result},status=200)
+
+
+
+#!HELPER FUNCTIONS
+def get_random_string(length):
+    import string
+    import random
+    # choose from all lowercase letter
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+   
+def AnalyzeFollowings(pk):
+    profile = Profile.objects.get(id=pk)
+    array=[]
+    count=0
+    for i in profile.following.all():
+        count=0
+        for j in Blog.objects.filter(profile=Profile.objects.get(user=i)):
+            if profile in j.likes.all():
+                count+=1
+        array.append([i.username,count,i.id])
+    array.sort(key = lambda x: x[1],reverse=True)
+    return array

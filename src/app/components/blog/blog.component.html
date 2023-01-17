@@ -60,12 +60,31 @@
         <span> 24 </span>
       </div>
       <!-- Likes -->
-      <div class="flex items-center">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="favorite-icon"
-          fontIcon="favorite"
-        ></mat-icon>
+      <div class="flex items-center gap-1">
+        <div
+          *ngIf="blog.likes.includes(service.user.profile.id)"
+          (click)="service.toggleBlogLike(blog.id)"
+          class="flex items-center"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="favorite"
+            class="cursor-pointer"
+          ></mat-icon>
+        </div>
+        <div
+          *ngIf="!blog.likes.includes(service.user.profile.id)"
+          (click)="service.toggleBlogLike(blog.id)"
+          class="flex items-center"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="favorite"
+            class="cursor-pointer text-red-500"
+          ></mat-icon>
+        </div>
         <span>
           {{ blog.likes?.length || "0" }}
         </span>

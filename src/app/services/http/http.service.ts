@@ -97,13 +97,26 @@ export class HttpService {
   }
 
   getProfile(id: number): void {
-    console.log('ÇEK PRFİLİ');
-
     this.http
       .get<Profile>(this.baseApiUrl + 'profile/' + id)
       .subscribe((res: any) => {
         console.log(res);
         this.profile = res.msg;
+      });
+  }
+
+  toggleBlogLike(id: number): void {
+    this.http
+      .post(this.baseApiUrl + 'blogs/' + id + '/toggle-like', {
+        id: this.user.profile.user.id,
+      })
+      .subscribe((res: any) => {
+        console.log(res.blog_data);
+        console.log(this.user.profile.user.id);
+
+        let this_blog = this.blogs.find((blog) => id === blog.id);
+        let index: number = this.blogs.indexOf(this_blog!);
+        this.blogs[index] = res.blog_data;
       });
   }
 
@@ -116,7 +129,6 @@ export class HttpService {
   }
 
   logoutUser(): void {
-    console.log('messi');
     this.user = null;
     localStorage.removeItem('authTokens');
   }

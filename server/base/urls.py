@@ -20,7 +20,7 @@ urlpatterns = [
     path('blogs/add', views.CreateBlog),
     path('blogs/<int:pk>/edit', views.EditBlog),
     path('blogs/<int:pk>/<str:lang>/delete', views.DeleteBlog),
-    path('blogs/<int:pk>/like', views.LikeBlog),
+    path('blogs/<int:pk>/toggle-like', views.ToggleBlogLike),
     path('trend-blogs/<str:trend_text>', views.TrendsBlogs),
 
     #?PROFILEs
