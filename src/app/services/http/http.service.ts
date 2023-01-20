@@ -18,8 +18,10 @@ export class HttpService {
   userProfile!: Profile;
   singleblog!: Blog;
   darkMode: string = 'false';
-  user!: any;
-
+  user: any = jwtDecode(
+    JSON.parse(localStorage.getItem('authTokens') || '{}').access
+  );
+  authTokens: any = JSON.parse(localStorage.getItem('authTokens') || '{}');
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
 
@@ -111,9 +113,6 @@ export class HttpService {
         id: this.user.profile.user.id,
       })
       .subscribe((res: any) => {
-        console.log(res.blog_data);
-        console.log(this.user.profile.user.id);
-
         let this_blog = this.blogs.find((blog) => id === blog.id);
         let index: number = this.blogs.indexOf(this_blog!);
         this.blogs[index] = res.blog_data;
@@ -121,11 +120,29 @@ export class HttpService {
   }
 
   loginUser(data: { username: string; password: string }): void {
-    this.http.post<any>(this.baseApiUrl + 'token', data).subscribe((res) => {
-      this.user = jwtDecode(res.access);
-      localStorage.setItem('authTokens', JSON.stringify(res));
-      this.router.navigate(['/']);
-    });
+    this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
+      (res) => {
+        this.user = jwtDecode(res.access);
+        localStorage.setItem('authTokens', JSON.stringify(res));
+        this.authTokens = res;
+        this.router.navigate(['/']);
+      },
+      (res) => {
+        this.toastr.error(res.error.detail);
+      }
+    );
+  }
+
+  updateToken(): void {
+    console.log(this.user, this.authTokens, this.authTokens?.access);
+
+    this.http
+      .post(this.baseApiUrl + 'token/refresh', {
+        refresh: this.authTokens?.access,
+      })
+      .subscribe((res: any) => {
+        console.log(res);
+      });
   }
 
   logoutUser(): void {

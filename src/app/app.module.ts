@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { DeleteBlogComponent } from './components/delete-blog/delete-blog.component';
 import { UpdateBlogComponent } from './components/update-blog/update-blog.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './components/register/register.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 @Pipe({
   name: 'timeAgo',
   pure: false,
@@ -36,6 +38,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     LoginComponent,
     DeleteBlogComponent,
     UpdateBlogComponent,
+    RegisterComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

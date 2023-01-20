@@ -1,35 +1,84 @@
-<div class="px-5 pt-5">
+<div class="flex justify-center mt-5">
   <div
-    class="bg-gradient-to-tr rounded-md shadow-md p-2 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
+    class="lg:w-4/5 w-5/6 hover:shadow-lg duration-200 rounded-md border border-stone-200 dark:border-stone-700 hover:border-stone-100 dark:hover:border-stone-800"
   >
-    <div class="flex justify-center">
-      <form
-        class="lg:w-4/5 w-full"
-        #LoginForm="ngForm"
-        (ngSubmit)="service.loginUser(LoginForm.value)"
-      >
-        <p>username</p>
-        <input
-          type="text"
-          name="username"
-          class="bg-gray-50 mb-4 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
-          ngModel
-        />
-        <p>password</p>
-        <input
-          type="password"
-          name="password"
-          class="bg-gray-50 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
-          ngModel
-        />
-        <div class="flex justify-center mt-3">
+    <div
+      class="bg-gradient-to-tr rounded-md shadow-md p-2 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700"
+    >
+      <div class="flex justify-center">
+        <form
+          class="lg:w-4/5 w-full"
+          #LoginForm="ngForm"
+          (ngSubmit)="service.loginUser(LoginForm.value)"
+        >
+          <h3 class="lg:text-2xl text-lg text-center mb-4 mt-3">Login</h3>
+          <div class="flex items-center gap-1">
+            <mat-icon fontIcon="person"></mat-icon>
+            <p>Username</p>
+          </div>
           <input
-            type="submit"
-            value="Login"
-            class="bg-gradient-to-tl cursor-pointer from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-1 text-lg rounded-md"
+            type="text"
+            name="username"
+            class="bg-gray-50 mb-4 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+            ngModel
           />
-        </div>
-      </form>
+          <div class="flex items-center gap-1">
+            <mat-icon fontIcon="lock"></mat-icon>
+            <p>Password</p>
+          </div>
+          <input
+            type="password"
+            name="password"
+            class="bg-gray-50 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+            ngModel
+          />
+          <div class="flex justify-between flex-wrap items-center mt-3 gap-2">
+            <input
+              type="submit"
+              value="Login"
+              class="bg-gradient-to-tl cursor-pointer md:w-1/2 w-full from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 text-lg rounded-md"
+            />
+            <div
+              class="float-right md:block hidden text-center text-sm md:text-base w-full md:w-auto font-semibold"
+            >
+              Forgot your password?
+              <a
+                routerLink="/reset-password"
+                class="text-blue-400 hover:underline"
+                >Reset Password</a
+              >
+            </div>
+          </div>
+          <div class="text-center md:block hidden">
+            <div
+              class="text-center text-sm md:text-base w-full md:w-auto font-semibold mt-3"
+            >
+              Dont have an account?
+              <a routerLink="/register" class="text-red-400 hover:underline"
+                >Register</a
+              >
+            </div>
+          </div>
+          <div
+            class="flex items-center md:hidden mt-3 sm:flex-nowrap flex-wrap"
+          >
+            <div
+              class="float-right text-center text-sm md:text-base w-full md:w-auto font-semibold hover:underline"
+            >
+              Forgot your password?
+              <a routerLink="/reset-password" class="text-blue-400"
+                >Reset Password</a
+              >
+            </div>
+            <div
+              class="float-right text-center text-sm md:text-base w-full md:w-auto font-semibold hover:underline"
+            >
+              Dont have an account?
+              <a routerLink="/register" class="text-red-400">Register</a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

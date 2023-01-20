@@ -26,7 +26,7 @@
         <div>{{ blog.updated | timeAgo }}</div>
       </a>
       <div
-        *ngIf="service.user.profile.id == blog.profile.id"
+        *ngIf="service?.user?.profile.id == blog.profile.id"
         class="flex gap-2 h-min"
       >
         <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"

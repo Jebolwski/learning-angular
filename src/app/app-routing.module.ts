@@ -7,6 +7,8 @@ import { LoginComponent } from './components/login/login.component';
 import { DeleteBlogComponent } from './components/delete-blog/delete-blog.component';
 import { FormsModule } from '@angular/forms';
 import { UpdateBlogComponent } from './components/update-blog/update-blog.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: BlogsComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'blog/:id/update', component: UpdateBlogComponent },
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
 ];
 
 @NgModule({
