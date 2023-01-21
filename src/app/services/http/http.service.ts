@@ -18,10 +18,12 @@ export class HttpService {
   userProfile!: Profile;
   singleblog!: Blog;
   darkMode: string = 'false';
-  user: any = jwtDecode(
-    JSON.parse(localStorage.getItem('authTokens') || '{}').access
-  );
-  authTokens: any = JSON.parse(localStorage.getItem('authTokens') || '{}');
+  user: any = localStorage.getItem('authTokens')
+    ? jwtDecode(JSON.parse(localStorage.getItem('authTokens') || '{}').access)
+    : null;
+  authTokens: any = localStorage.getItem('authTokens')
+    ? JSON.parse(localStorage.getItem('authTokens') || '{}')
+    : null;
   private apiUrl: string =
     'https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json';
 
@@ -37,6 +39,8 @@ export class HttpService {
     this.http
       .get<Blog[]>(this.baseApiUrl + 'blogs/all')
       .subscribe((res: any) => {
+        console.log(res);
+
         this.blogs = res.msg;
       });
   }
@@ -122,7 +126,9 @@ export class HttpService {
   loginUser(data: { username: string; password: string }): void {
     this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
       (res) => {
-        this.user = jwtDecode(res.access);
+        let data: any = jwtDecode(res.access);
+        this.user = data.profile;
+        console.log(this.user);
         localStorage.setItem('authTokens', JSON.stringify(res));
         this.authTokens = res;
         this.router.navigate(['/']);
@@ -134,19 +140,23 @@ export class HttpService {
   }
 
   updateToken(): void {
-    console.log(this.user, this.authTokens, this.authTokens?.access);
-
-    this.http
-      .post(this.baseApiUrl + 'token/refresh', {
-        refresh: this.authTokens?.access,
-      })
-      .subscribe((res: any) => {
-        console.log(res);
-      });
+    if (this.authTokens) {
+      this.http
+        .post(this.baseApiUrl + 'token/refresh', {
+          refresh: this.authTokens?.refresh,
+        })
+        .subscribe((res: any) => {
+          this.authTokens = res;
+          let data: any = jwtDecode(res.access);
+          this.user = data.profile;
+          localStorage.setItem('authTokens', JSON.stringify(res));
+        });
+    }
   }
 
   logoutUser(): void {
     this.user = null;
+    this.authTokens = null;
     localStorage.removeItem('authTokens');
   }
 }

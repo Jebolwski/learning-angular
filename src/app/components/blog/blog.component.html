@@ -62,7 +62,7 @@
       <!-- Likes -->
       <div class="flex items-center gap-1">
         <div
-          *ngIf="blog.likes.includes(service.user.profile.id)"
+          *ngIf="blog.likes.includes(service.user.id)"
           (click)="service.toggleBlogLike(blog.id)"
           class="flex items-center"
         >
@@ -74,7 +74,7 @@
           ></mat-icon>
         </div>
         <div
-          *ngIf="!blog.likes.includes(service.user.profile.id)"
+          *ngIf="!blog.likes.includes(service.user.id)"
           (click)="service.toggleBlogLike(blog.id)"
           class="flex items-center"
         >

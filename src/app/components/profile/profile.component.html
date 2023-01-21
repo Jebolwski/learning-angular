@@ -9,13 +9,13 @@
         class="scale-125 rounded-full cursor-pointer right-5 top-5 absolute hover:bg-stone-200 dark:hover:bg-stone-700 p-1"
       ></mat-icon>
       <img
-        *ngIf="service.profile.profilePic"
+        *ngIf="service.profile?.profilePic"
         src="http://127.0.0.1:8000{{ service.profile.profilePic }}"
         class="w-72 h-72 rounded-full border-2 border-stone-200 dark:border-stone-700 -mt-10"
         alt="{{ service.profile.user.username }}"
       />
       <img
-        *ngIf="!service.profile.profilePic"
+        *ngIf="!service.profile?.profilePic"
         src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
         class="w-72 h-72 rounded-full border-2 border-stone-200 dark:border-stone-700 -mt-10"
         alt="{{ service.profile.user.username }}"
@@ -27,13 +27,13 @@
   >
     <div class="flex gap-3">
       <img
-        *ngIf="service.profile.profilePic"
+        *ngIf="service.profile?.profilePic"
         (click)="toggleBigProfilePicture()"
         src="http://127.0.0.1:8000{{ service.profile.profilePic }}"
         class="w-10 h-10 cursor-pointer rounded-full border border-stone-200 dark:border-stone-700"
       />
       <img
-        *ngIf="!service.profile.profilePic"
+        *ngIf="!service.profile?.profilePic"
         (click)="toggleBigProfilePicture()"
         src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
         class="w-10 h-10 cursor-pointer rounded-full border border-stone-200 dark:border-stone-700"
