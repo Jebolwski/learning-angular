@@ -1,7 +1,7 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
 import { HttpService } from './services/http/http.service';
 import jwtDecode from 'jwt-decode';
-declare var $: any;
+import * as $ from 'jquery';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +20,11 @@ export class AppComponent implements OnInit {
       } else {
         document.querySelector('.up-button')?.classList.add('hidden');
         document.querySelector('.up-button')?.classList.remove('flex');
+      }
+    });
+    this.renderer.listen('window', 'resize', () => {
+      if (window.innerWidth > 766) {
+        $('.mobile-sidebar').hide(300);
       }
     });
   }

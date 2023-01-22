@@ -4,6 +4,18 @@
   >
     <app-header></app-header>
     <div>
+      <div
+        class="mobile-sidebar p-3 hidden fixed w-full h-full top-[48px] bg-gradient-to-tr mb-3 bg-stone-100 dark:bg-stone-800"
+      >
+        <div class="flex items-center gap-2 mt-4">
+          <mat-icon fontIcon="bookmark" class="scale-125"></mat-icon>
+          <p class="text-xl">Bookmarks</p>
+        </div>
+        <div class="flex items-center gap-2 mt-6">
+          <mat-icon fontIcon="chat" class="scale-125"></mat-icon>
+          <p class="text-xl">Blogs</p>
+        </div>
+      </div>
       <router-outlet></router-outlet>
       <div
         class="up-button items-center hidden justify-center cursor-pointer bg-stone-200 dark:bg-stone-700 border border-stone-300 dark:border-stone-600 shadow rounded-full fixed right-4 bottom-4 w-9 h-9"

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
@@ -6,6 +6,7 @@ import { Profile } from 'src/app/interfaces/profile';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as $ from 'jquery';
 @Injectable({
   providedIn: 'root',
 })
@@ -39,10 +40,15 @@ export class HttpService {
     this.http
       .get<Blog[]>(this.baseApiUrl + 'blogs/all')
       .subscribe((res: any) => {
-        console.log(res);
-
         this.blogs = res.msg;
+        this.blogs.forEach((element) => {
+          console.log(element.likes.includes(this.user.profile.user.id));
+        });
       });
+  }
+
+  youNeedToLogin(): void {
+    this.toastr.info(`You need to login in order to do this. 😢`);
   }
 
   toggleDarkMode(): void {
@@ -102,11 +108,14 @@ export class HttpService {
     });
   }
 
+  toggleMobileSidebar(): void {
+    $('.mobile-sidebar').toggle(300);
+  }
+
   getProfile(id: number): void {
     this.http
       .get<Profile>(this.baseApiUrl + 'profile/' + id)
       .subscribe((res: any) => {
-        console.log(res);
         this.profile = res.msg;
       });
   }
@@ -126,9 +135,7 @@ export class HttpService {
   loginUser(data: { username: string; password: string }): void {
     this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
       (res) => {
-        let data: any = jwtDecode(res.access);
-        this.user = data.profile;
-        console.log(this.user);
+        this.user = jwtDecode(res.access);
         localStorage.setItem('authTokens', JSON.stringify(res));
         this.authTokens = res;
         this.router.navigate(['/']);

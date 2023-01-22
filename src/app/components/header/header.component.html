@@ -1,5 +1,5 @@
 <div
-  class="header sticky top-0 border-b bg-stone-100 border-stone-100 dark:border-stone-800 shadow-md shadow-stone-300 dark:shadow-stone-900 dark:bg-stone-800 h-12"
+  class="header z-20 sticky top-0 border-b bg-stone-100 border-stone-100 dark:border-stone-800 shadow-md shadow-stone-300 dark:shadow-stone-900 dark:bg-stone-800 h-12"
 >
   <div class="flex items-center justify-between h-12 p-1">
     <a routerLink="/">
@@ -8,18 +8,21 @@
         class="w-8"
       />
     </a>
+
     <div class="w-2/5 relative flex">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="favorite-icon"
-        fontIcon="search"
-        class="absolute left-2 z-10 top-[8px]"
-        style="width: 20px; height: 20px; font-size: 20px"
-      ></mat-icon>
+      <div class="hidden md:block">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="search"
+          fontIcon="search"
+          class="absolute left-2 z-10 top-[8px]"
+          style="width: 20px; height: 20px; font-size: 20px"
+        ></mat-icon>
+      </div>
       <input
         type="text"
         placeholder="Search..."
-        class="header-search-input w-full pl-9 bg-stone-50 border border-stone-300 text-stone-900 rounded-lg rounded-r-none p-1 dark:bg-stone-800 dark:border-stone-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-stone-700 focus-visible:outline-stone-300"
+        class="header-search-input w-full md:pl-9 bg-stone-50 border border-stone-300 text-stone-900 rounded-lg rounded-r-none p-1 dark:bg-stone-800 dark:border-stone-600 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-stone-700 focus-visible:outline-stone-300"
       />
       <button
         class="dark:bg-stone-900 bg-stone-100 border-stone-200 p-1 rounded-r-lg border dark:border-stone-700 flex items-center justify-center"
@@ -31,8 +34,13 @@
           class="search-icon"
         ></mat-icon>
       </button>
+      <img
+        src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+        class="w-8 h-8 rounded-full md:hidden flex items-center ml-1"
+        alt="profile picture"
+      />
     </div>
-    <div class="flex items-center gap-3">
+    <div class="md:flex hidden items-center gap-3">
       <div
         (click)="service.toggleDarkMode()"
         class="flex items-center cursor-pointer"
@@ -74,7 +82,14 @@
 
       <div *ngIf="service.user" class="relative">
         <img
-          src="http://127.0.0.1:8000{{ service.user.profilePic }}"
+          *ngIf="service.user.profile.profilePic"
+          src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+          class="w-8 h-8 rounded-full cursor-pointer"
+          (click)="toggleProfileDiv()"
+        />
+        <img
+          *ngIf="!service.user.profile.profilePic"
+          src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
           class="w-8 h-8 rounded-full cursor-pointer"
           (click)="toggleProfileDiv()"
         />
@@ -82,7 +97,7 @@
           class="profile-toggle-div hidden absolute right-0 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
         >
           <a
-            routerLink="/profile/{{ service.user.id }}"
+            routerLink="/profile/{{ service.user.profile.id }}"
             class="flex cursor-pointer gap-2 items-center"
           >
             <mat-icon
@@ -121,6 +136,12 @@
           Login
         </a>
       </div>
+    </div>
+    <div
+      class="md:hidden h-full flex items-center"
+      (click)="service.toggleMobileSidebar()"
+    >
+      <mat-icon fontIcon="menu" class="scale-125 cursor-pointer"></mat-icon>
     </div>
   </div>
 </div>

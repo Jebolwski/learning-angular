@@ -26,7 +26,7 @@
         <div>{{ blog.updated | timeAgo }}</div>
       </a>
       <div
-        *ngIf="service?.user?.profile.id == blog.profile.id"
+        *ngIf="service?.user?.profile?.id == blog.profile.id"
         class="flex gap-2 h-min"
       >
         <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"
@@ -51,18 +51,44 @@
     ></div>
     <div class="interactions flex items-center justify-around flex-wrap">
       <!-- Comments -->
-      <div class="flex items-center">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="chat-icon"
-          fontIcon="chatbubble"
-        ></mat-icon>
-        <span> 24 </span>
+      <div class="flex items-center gap-1" *ngIf="service.user">
+        <div class="flex items-center gap-1">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="comment"
+            class="cursor-pointer"
+          ></mat-icon>
+          <span>{{ blog.likes?.length || "0" }}</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1" *ngIf="!service.user">
+        <div (click)="service.youNeedToLogin()" class="flex items-center gap-1">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="comment"
+            class="cursor-pointer"
+          ></mat-icon>
+          <span>{{ blog.likes?.length || "0" }}</span>
+        </div>
       </div>
       <!-- Likes -->
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-1" *ngIf="service.user">
         <div
-          *ngIf="blog.likes.includes(service.user.id)"
+          *ngIf="blog.likes.includes(service.user?.profile?.user?.id)"
+          (click)="service.toggleBlogLike(blog.id)"
+          class="flex items-center"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="favorite-icon"
+            fontIcon="favorite"
+            class="cursor-pointer text-green-400"
+          ></mat-icon>
+        </div>
+        <div
+          *ngIf="!blog.likes.includes(service.user?.profile?.user?.id)"
           (click)="service.toggleBlogLike(blog.id)"
           class="flex items-center"
         >
@@ -73,16 +99,21 @@
             class="cursor-pointer"
           ></mat-icon>
         </div>
+        <span>
+          {{ blog.likes?.length || "0" }}
+        </span>
+      </div>
+      <div class="flex items-center gap-1" *ngIf="!service.user">
         <div
-          *ngIf="!blog.likes.includes(service.user.id)"
-          (click)="service.toggleBlogLike(blog.id)"
+          *ngIf="!blog.likes.includes(service.user?.profile?.id)"
+          (click)="service.youNeedToLogin()"
           class="flex items-center"
         >
           <mat-icon
             aria-hidden="false"
             aria-label="favorite-icon"
             fontIcon="favorite"
-            class="cursor-pointer text-red-500"
+            class="opacity-50"
           ></mat-icon>
         </div>
         <span>
