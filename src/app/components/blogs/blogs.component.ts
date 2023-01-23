@@ -36,6 +36,7 @@ export class BlogsComponent implements OnInit {
     if (this.file) {
       formdata.append('file', this.file, this.file.name);
     }
+
     formdata.append('profile', this.service.user.profile.id);
     this.service.addABlog(formdata);
   }

@@ -3,13 +3,10 @@
 >
   <div class="flex items-center justify-between h-12 p-1">
     <a routerLink="/">
-      <img
-        src="https://iconarchive.com/download/i99782/designbolts/free-multimedia/Film.ico"
-        class="w-8"
-      />
+      <img src="../../../assets/images/icon.png" class="w-9" />
     </a>
 
-    <div class="w-2/5 relative flex">
+    <div class="md:w-2/5 w-2/3 relative flex items-center">
       <div class="hidden md:block">
         <mat-icon
           aria-hidden="false"
@@ -34,11 +31,81 @@
           class="search-icon"
         ></mat-icon>
       </button>
-      <img
-        src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
-        class="w-8 h-8 rounded-full md:hidden flex items-center ml-1"
-        alt="profile picture"
-      />
+      <div *ngIf="service.user" class="relative">
+        <img
+          src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+          class="w-8 h-8 rounded-full md:hidden flex items-center ml-2 cursor-pointer"
+          (click)="toggleProfileDiv2()"
+          alt="profile picture"
+        />
+        <div
+          class="profile-toggle-div-2 hidden absolute -left-8 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
+        >
+          <a
+            routerLink="/profile/{{ service.user.profile.id }}"
+            class="flex cursor-pointer gap-2 items-center"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="account_circle"
+              fontIcon="account_circle"
+            ></mat-icon>
+            <p>Profile</p>
+          </a>
+          <div class="flex cursor-pointer gap-2 items-center">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="favorite-icon"
+              fontIcon="settings"
+            ></mat-icon>
+            <p>Settings</p>
+          </div>
+          <div
+            class="flex cursor-pointer gap-2 items-center"
+            (click)="service.logoutUser()"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="favorite-icon"
+              fontIcon="logout"
+            ></mat-icon>
+            <div>Logout</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!service.user">
+        <a
+          routerLink="/login"
+          class="bg-gradient-to-tl md:hidden duration-300 ml-1 hover:shadow-md from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 p-[4px] rounded-md"
+        >
+          Login
+        </a>
+      </div>
+
+      <div class="md:hidden">
+        <div
+          (click)="service.toggleDarkMode()"
+          class="flex items-center cursor-pointer ml-2"
+          *ngIf="service.darkMode == 'true'"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="light-icon"
+            fontIcon="light_mode"
+          ></mat-icon>
+        </div>
+        <div
+          (click)="service.toggleDarkMode()"
+          *ngIf="service.darkMode == 'false'"
+          class="flex items-center cursor-pointer ml-2"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="dark-icon"
+            fontIcon="dark_mode"
+          ></mat-icon>
+        </div>
+      </div>
     </div>
     <div class="md:flex hidden items-center gap-3">
       <div
@@ -63,14 +130,14 @@
           fontIcon="dark_mode"
         ></mat-icon>
       </div>
-      <div class="flex items-center gap-1">
+      <a routerLink="/" class="flex items-center gap-1">
         <mat-icon
           aria-hidden="false"
           aria-label="favorite-icon"
           fontIcon="chat"
         ></mat-icon>
         <p>Blogs</p>
-      </div>
+      </a>
       <div class="flex items-center gap-1">
         <mat-icon
           aria-hidden="false"
@@ -79,7 +146,6 @@
         ></mat-icon>
         <p>Bookmarks</p>
       </div>
-
       <div *ngIf="service.user" class="relative">
         <img
           *ngIf="service.user.profile.profilePic"

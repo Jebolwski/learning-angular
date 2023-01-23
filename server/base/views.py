@@ -104,6 +104,7 @@ def GetAllBlogs(request):
 
 #!CREATE A BLOG
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def CreateBlog(request):
     profile=Profile.objects.get(id=request.data.get('profile'))
 
@@ -133,6 +134,7 @@ def CreateBlog(request):
 
 #!EDIT A BLOG BY ID
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def EditBlog(request,pk):
     blog = Blog.objects.get(id=pk)
     lang = request.data.get('language')
@@ -172,6 +174,7 @@ def EditBlog(request,pk):
 
 #!DELETE A BLOG
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def DeleteBlog(request,pk,lang):
     blog = Blog.objects.get(id=pk)
     if blog==None:
@@ -186,6 +189,7 @@ def DeleteBlog(request,pk,lang):
         return Response({"msg":"Blog has been deleted. 👍"},status=200)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def GetProfile(request,pk):
     profile = Profile.objects.filter(id=pk)
     if len(profile)>0:
@@ -195,6 +199,7 @@ def GetProfile(request,pk):
         return Response({"msg":"Couldnt find the user 🤔"},status=404)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def EditProfile(request,pk):
     profile = Profile.objects.get(id=pk)
     if profile==None:
@@ -222,6 +227,7 @@ def GetAllInterests(request):
     return Response({"msg":serializer.data},status=200)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def FollowSomebody(request):
     will_be_followed = Profile.objects.filter(user=User.objects.get(id=request.data.get('will_be_followed')))
     will_follow = Profile.objects.filter(user=User.objects.get(id=request.data.get('will_follow')))
@@ -249,6 +255,7 @@ def FollowSomebody(request):
         return Response({"msg":"Couldnt find the profile. 😒"},status=404)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def ChangePassword(request):
     u = Profile.objects.get(id=request.data.get("id")).user
     auth = authenticate(username=u.username, password=request.data.get("old_password"))
@@ -273,6 +280,7 @@ def ChangePassword(request):
         return Response({"msg":"Changed your password. 👍"},status=200)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def ResetPasswordMail(request):
     email = request.data.get("mail")
     lang = request.data.get("language")
@@ -351,6 +359,7 @@ def ResetPassword(request,code):
             return Response({"msg":"Can't change password now. 😒"},status=400)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def ChangeMailSendMail(request):
     lang = request.data.get('lang')
     if len(User.objects.filter(id=request.data.get('id')))>0:
@@ -453,6 +462,7 @@ def ConfirmMail(request,code):
             return Response ({"msg":"Cant change mail right now. 😒"},status=400)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def ToggleBlogLike(request,pk):
     blog = Blog.objects.get(id=pk)
     profile = Profile.objects.filter(id=request.data.get("id"))

@@ -14,4 +14,8 @@ export class HeaderComponent {
   toggleProfileDiv() {
     $('.profile-toggle-div').fadeToggle(400);
   }
+
+  toggleProfileDiv2() {
+    $('.profile-toggle-div-2').fadeToggle(400);
+  }
 }

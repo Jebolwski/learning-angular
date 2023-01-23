@@ -13,12 +13,17 @@ import { BlogDetailComponent } from './components/blog-detail/blog-detail.compon
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteBlogComponent } from './components/delete-blog/delete-blog.component';
 import { UpdateBlogComponent } from './components/update-blog/update-blog.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import {
+  provideTippyConfig,
+  tooltipVariation,
+  popperVariation,
+} from '@ngneat/helipopper';
 @Pipe({
   name: 'timeAgo',
   pure: false,
@@ -48,6 +53,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BrowserAnimationsModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-bottom-right',
@@ -56,7 +62,15 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
       progressBar: true,
     }),
   ],
-  providers: [],
+  providers: [
+    provideTippyConfig({
+      defaultVariation: 'tooltip',
+      variations: {
+        tooltip: tooltipVariation,
+        popper: popperVariation,
+      },
+    }),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

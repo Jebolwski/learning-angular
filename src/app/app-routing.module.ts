@@ -11,8 +11,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
-  { path: '', component: BlogsComponent },
-  { path: 'blog/:id', component: BlogDetailComponent },
+  { path: '', component: BlogsComponent, title: 'Home' },
+  { path: 'blog/:id', component: BlogDetailComponent, title: 'Blog' },
   { path: 'blog/:id/delete', component: DeleteBlogComponent },
   { path: 'blog/:id/update', component: UpdateBlogComponent },
   { path: 'profile/:id', component: ProfileComponent },

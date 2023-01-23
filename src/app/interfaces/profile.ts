@@ -1,6 +1,8 @@
+import { User } from './user';
+
 export interface Profile {
   id: number;
-  user: any;
+  user: User;
   profilePic: string;
   description: string;
   followers: any;

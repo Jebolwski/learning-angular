@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Movie } from 'src/app/interfaces/movie';
 import { Blog } from 'src/app/interfaces/blog';
 import { Profile } from 'src/app/interfaces/profile';
@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
+import { User } from 'src/app/interfaces/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -41,9 +42,6 @@ export class HttpService {
       .get<Blog[]>(this.baseApiUrl + 'blogs/all')
       .subscribe((res: any) => {
         this.blogs = res.msg;
-        this.blogs.forEach((element) => {
-          console.log(element.likes.includes(this.user.profile.user.id));
-        });
       });
   }
 
@@ -74,8 +72,12 @@ export class HttpService {
   }
 
   addABlog(data: FormData): void {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
+
     this.http
-      .post(this.baseApiUrl + 'blogs/add', data)
+      .post(this.baseApiUrl + 'blogs/add', data, { headers: headers })
       .subscribe((res: any) => {
         this.getBlogs();
         this.toastr.success(res['success_msg']);
@@ -83,8 +85,13 @@ export class HttpService {
   }
 
   deleteABlog(id: number): void {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
     this.http
-      .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete')
+      .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete', {
+        headers: headers,
+      })
       .subscribe((res: any) => {
         this.toastr.success(res['msg']);
         this.router.navigate(['/']);
@@ -92,10 +99,14 @@ export class HttpService {
   }
 
   updateABlog(id: number, data: FormData) {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
     this.http
-      .put(this.baseApiUrl + 'blogs/' + id + '/edit', data)
+      .put(this.baseApiUrl + 'blogs/' + id + '/edit', data, {
+        headers: headers,
+      })
       .subscribe((res: any) => {
-        console.log(res);
         this.toastr.success(res['success_msg']);
       });
   }
@@ -113,18 +124,28 @@ export class HttpService {
   }
 
   getProfile(id: number): void {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
     this.http
-      .get<Profile>(this.baseApiUrl + 'profile/' + id)
+      .get<Profile>(this.baseApiUrl + 'profile/' + id, { headers: headers })
       .subscribe((res: any) => {
         this.profile = res.msg;
       });
   }
 
   toggleBlogLike(id: number): void {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
     this.http
-      .post(this.baseApiUrl + 'blogs/' + id + '/toggle-like', {
-        id: this.user.profile.user.id,
-      })
+      .post(
+        this.baseApiUrl + 'blogs/' + id + '/toggle-like',
+        {
+          id: this.user.profile.user.id,
+        },
+        { headers: headers }
+      )
       .subscribe((res: any) => {
         let this_blog = this.blogs.find((blog) => id === blog.id);
         let index: number = this.blogs.indexOf(this_blog!);
@@ -132,7 +153,8 @@ export class HttpService {
       });
   }
 
-  loginUser(data: { username: string; password: string }): void {
+  loginUser(data: any): void {
+    console.log(data);
     this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
       (res) => {
         this.user = jwtDecode(res.access);
@@ -142,6 +164,9 @@ export class HttpService {
       },
       (res) => {
         this.toastr.error(res.error.detail);
+      },
+      () => {
+        console.log('completed');
       }
     );
   }
