@@ -37,9 +37,10 @@ export class AppComponent implements OnInit {
     }
 
     if (this.service.user) {
-      setInterval(() => {
+      let interval: any = setInterval(() => {
         this.service.updateToken();
       }, 1000 * 60 * 4);
+      return clearInterval(interval);
     }
   }
 }

@@ -33,7 +33,7 @@
       </button>
       <div *ngIf="service.user" class="relative">
         <img
-          src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+          src="http://127.0.0.1:8000{{ service.user?.profile.profilePic }}"
           class="w-8 h-8 rounded-full md:hidden flex items-center ml-2 cursor-pointer"
           (click)="toggleProfileDiv2()"
           alt="profile picture"
@@ -42,7 +42,7 @@
           class="profile-toggle-div-2 hidden absolute -left-8 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
         >
           <a
-            routerLink="/profile/{{ service.user.profile.id }}"
+            routerLink="/profile/{{ service.user?.profile.id }}"
             class="flex cursor-pointer gap-2 items-center"
           >
             <mat-icon
@@ -50,7 +50,7 @@
               aria-label="account_circle"
               fontIcon="account_circle"
             ></mat-icon>
-            <p>Profile</p>
+            <div class="bracelet-div"><p>Profile</p></div>
           </a>
           <div class="flex cursor-pointer gap-2 items-center">
             <mat-icon
@@ -58,7 +58,7 @@
               aria-label="favorite-icon"
               fontIcon="settings"
             ></mat-icon>
-            <p>Settings</p>
+            <div class="bracelet-div"><p>Settings</p></div>
           </div>
           <div
             class="flex cursor-pointer gap-2 items-center"
@@ -69,7 +69,7 @@
               aria-label="favorite-icon"
               fontIcon="logout"
             ></mat-icon>
-            <div>Logout</div>
+            <div class="bracelet-div"><p>Logout</p></div>
           </div>
         </div>
       </div>
@@ -148,13 +148,13 @@
       </div>
       <div *ngIf="service.user" class="relative">
         <img
-          *ngIf="service.user.profile.profilePic"
-          src="http://127.0.0.1:8000{{ service.user.profile.profilePic }}"
+          *ngIf="service.user?.profile.profilePic"
+          src="http://127.0.0.1:8000{{ service.user?.profile.profilePic }}"
           class="w-8 h-8 rounded-full cursor-pointer"
           (click)="toggleProfileDiv()"
         />
         <img
-          *ngIf="!service.user.profile.profilePic"
+          *ngIf="!service.user?.profile.profilePic"
           src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
           class="w-8 h-8 rounded-full cursor-pointer"
           (click)="toggleProfileDiv()"
@@ -163,7 +163,7 @@
           class="profile-toggle-div hidden absolute right-0 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
         >
           <a
-            routerLink="/profile/{{ service.user.profile.id }}"
+            routerLink="/profile/{{ service.user?.profile.id }}"
             class="flex cursor-pointer gap-2 items-center"
           >
             <mat-icon
@@ -171,7 +171,10 @@
               aria-label="account_circle"
               fontIcon="account_circle"
             ></mat-icon>
-            <p>Profile</p>
+
+            <div class="bracelet-div">
+              <p>Profile</p>
+            </div>
           </a>
           <div class="flex cursor-pointer gap-2 items-center">
             <mat-icon
@@ -179,7 +182,9 @@
               aria-label="favorite-icon"
               fontIcon="settings"
             ></mat-icon>
-            <p>Settings</p>
+            <div class="bracelet-div">
+              <p>Settings</p>
+            </div>
           </div>
           <div
             class="flex cursor-pointer gap-2 items-center"
@@ -190,7 +195,9 @@
               aria-label="favorite-icon"
               fontIcon="logout"
             ></mat-icon>
-            <div>Logout</div>
+            <div class="bracelet-div">
+              <p>Logout</p>
+            </div>
           </div>
         </div>
       </div>

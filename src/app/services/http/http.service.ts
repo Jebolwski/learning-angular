@@ -129,9 +129,14 @@ export class HttpService {
     });
     this.http
       .get<Profile>(this.baseApiUrl + 'profile/' + id, { headers: headers })
-      .subscribe((res: any) => {
-        this.profile = res.msg;
-      });
+      .subscribe(
+        (res: any) => {
+          this.profile = res.msg;
+        },
+        (err) => {
+          this.toastr.error(err.msg);
+        }
+      );
   }
 
   toggleBlogLike(id: number): void {
@@ -154,7 +159,6 @@ export class HttpService {
   }
 
   loginUser(data: any): void {
-    console.log(data);
     this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
       (res) => {
         this.user = jwtDecode(res.access);
@@ -164,9 +168,6 @@ export class HttpService {
       },
       (res) => {
         this.toastr.error(res.error.detail);
-      },
-      () => {
-        console.log('completed');
       }
     );
   }
@@ -179,8 +180,7 @@ export class HttpService {
         })
         .subscribe((res: any) => {
           this.authTokens = res;
-          let data: any = jwtDecode(res.access);
-          this.user = data.profile;
+          this.user = jwtDecode(res.access);
           localStorage.setItem('authTokens', JSON.stringify(res));
         });
     }
@@ -190,5 +190,6 @@ export class HttpService {
     this.user = null;
     this.authTokens = null;
     localStorage.removeItem('authTokens');
+    this.router.navigate(['/']);
   }
 }

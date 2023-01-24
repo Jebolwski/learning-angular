@@ -18,7 +18,6 @@
         *ngIf="!service.profile?.profilePic"
         src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
         class="w-72 h-72 rounded-full border-2 border-stone-200 dark:border-stone-700 -mt-10"
-        alt="{{ service.profile.user.username }}"
       />
     </div>
   </div>
@@ -40,25 +39,36 @@
       />
       <div>
         <div class="flex items-center gap-4 pt-1">
-          <p class="text-lg">{{ service.profile.user.username }}</p>
+          <p class="text-lg" *ngIf="service.profile">
+            {{ service.profile.user.username }}
+          </p>
+          <button
+            class="bg-gradient-to-tl from-stone-200 to-slate-100 opacity-50 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 px-1 rounded-md"
+            *ngIf="service.user?.profile?.user?.id == service.profile?.user?.id"
+          >
+            Follow
+          </button>
           <button
             class="bg-gradient-to-tl from-stone-200 to-slate-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 px-1 rounded-md"
+            *ngIf="service.user?.profile?.user?.id != service.profile?.user?.id"
           >
             Follow
           </button>
         </div>
-        <p class="pt-2">{{ service.profile.description }}</p>
+        <p class="pt-2" *ngIf="service.profile">
+          {{ service.profile.description }}
+        </p>
         <div class="flex items-center gap-4">
           <!-- Followers -->
           <div class="flex items-center gap-2">
-            <p class="italic text-blue-400">
+            <p class="italic text-blue-400" *ngIf="service.profile">
               {{ service.profile.followers.length }}
             </p>
             <p>Followers</p>
           </div>
           <!-- Followers -->
           <div class="flex items-center gap-2">
-            <p class="italic text-blue-400">
+            <p class="italic text-blue-400" *ngIf="service.profile">
               {{ service.profile.following.length }}
             </p>
             <p>Following</p>

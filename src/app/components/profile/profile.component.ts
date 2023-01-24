@@ -22,10 +22,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '0';
     if (parseInt(this.id) > 0) {
-      this.service.getProfile(parseInt(this.id));
+      if (this.service.user.profile.user.id != this.id) {
+        this.service.getProfile(parseInt(this.id));
+      }
     }
-
-    this.title.setTitle(this.service.profile.user.username);
+    this.title.setTitle(this.service.user?.profile?.user?.username);
   }
 
   toggleBigProfilePicture(): void {

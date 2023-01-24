@@ -35,8 +35,6 @@ export class UpdateBlogComponent implements OnInit {
   }
 
   updateBlog(data: { text: string; profile: number }): void {
-    console.log(this.removefile);
-
     let formdata = new FormData();
     formdata.append('removefile', this.removefile);
     formdata.append('text', data.text);

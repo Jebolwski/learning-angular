@@ -21,3 +21,66 @@ body {
   height: 21px;
   font-size: 21px;
 }
+
+.blog-sidebar-hover {
+  width: 0px;
+  opacity: 0;
+  padding: 4px;
+  transition: 0.3s;
+}
+
+.blogs-sidebar:hover .blog-sidebar-hover {
+  opacity: 1;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.bookmarks-sidebar-hover {
+  width: 0px;
+  padding: 4px;
+  transition: 0.3s;
+  opacity: 0;
+}
+
+.bookmarks-sidebar:hover .bookmarks-sidebar-hover {
+  opacity: 1;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.bracelet-div {
+  position: relative;
+}
+
+.bracelet-div p::after {
+  content: "";
+  opacity: 0;
+  transition: 0.3s;
+  margin: 10px;
+  position: absolute;
+  right: -12px;
+  top: -10px;
+}
+
+.bracelet-div p::before {
+  content: "";
+  opacity: 0;
+  transition: 0.3s;
+  position: absolute;
+  left: -2px;
+}
+
+.bracelet-div p:hover::before {
+  transition: 0.3s;
+  left: -6px;
+  content: "{";
+  opacity: 1;
+}
+.bracelet-div p:hover::after {
+  right: -16px;
+  top: -10px;
+  bottom: 0;
+  content: "}";
+  transition: 0.3s;
+  opacity: 1;
+}
