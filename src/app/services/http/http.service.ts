@@ -186,6 +186,25 @@ export class HttpService {
     }
   }
 
+  followProfile(id: number): void {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authTokens.access}`,
+    });
+    this.http
+      .post(
+        this.baseApiUrl + 'follow',
+        {
+          language: 'en',
+          will_be_followed: id,
+          will_follow: this.user.profile.user.id,
+        },
+        { headers: headers }
+      )
+      .subscribe((res: any) => {
+        this.profile = res.data;
+      });
+  }
+
   logoutUser(): void {
     this.user = null;
     this.authTokens = null;

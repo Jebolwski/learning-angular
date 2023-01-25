@@ -239,15 +239,17 @@ def FollowSomebody(request):
         if will_follow.user not in will_be_followed.followers.all():
             will_be_followed.followers.add(will_follow.user.id)
             will_follow.following.add(will_be_followed.user.id)
+            followed_user = ProfileSerializer(will_be_followed,many=False)
             if lang=="tr":
-                return Response({"msg":"Başarıyla takip edildi. 🚀"},status=200)
-            return Response({"msg":"Successfully followed profile. 🚀"},status=200)
+                return Response({"msg":"Başarıyla takip edildi. 🚀","data":followed_user.data},status=200)
+            return Response({"msg":"Successfully followed profile. 🚀","data":followed_user.data},status=200)
         else:
             will_be_followed.followers.remove(will_follow.user.id)
             will_follow.following.remove(will_be_followed.user.id)
+            followed_user = ProfileSerializer(will_be_followed,many=False)
             if lang=="tr":
-                return Response({"msg":"Başarıyla takipten çıkıldı. 🚀"},status=200)
-            return Response({"msg":"Successfully unfollowed profile. 🚀"},status=200)
+                return Response({"msg":"Başarıyla takipten çıkıldı. 🚀","data":followed_user.data},status=200)
+            return Response({"msg":"Successfully unfollowed profile. 🚀","data":followed_user.data},status=200)
         
     else:
         if lang=="tr":

@@ -50,11 +50,30 @@
           </button>
           <button
             class="bg-gradient-to-tl from-stone-200 to-slate-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 px-1 rounded-md"
-            *ngIf="service.user?.profile?.user?.id != service.profile?.user?.id"
+            *ngIf="
+              service.user?.profile?.user?.id != service.profile?.user?.id &&
+              service.profile?.followers?.includes(
+                service.user?.profile?.user?.id
+              )
+            "
+            (click)="service.followProfile(service.profile.user.id)"
+          >
+            Following
+          </button>
+          <button
+            class="bg-gradient-to-tl from-stone-200 to-slate-100 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 px-1 rounded-md"
+            *ngIf="
+              service.user?.profile?.user?.id != service.profile?.user?.id &&
+              !service.profile?.followers?.includes(
+                service.user?.profile?.user?.id
+              )
+            "
+            (click)="service.followProfile(service.profile.user.id)"
           >
             Follow
           </button>
         </div>
+
         <p class="pt-2" *ngIf="service.profile">
           {{ service.profile.description }}
         </p>
