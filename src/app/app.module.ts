@@ -24,6 +24,7 @@ import {
   tooltipVariation,
   popperVariation,
 } from '@ngneat/helipopper';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 @Pipe({
   name: 'timeAgo',
   pure: false,
@@ -45,6 +46,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     UpdateBlogComponent,
     RegisterComponent,
     ResetPasswordComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,

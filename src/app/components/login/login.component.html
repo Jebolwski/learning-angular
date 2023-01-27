@@ -9,13 +9,9 @@
         <form
           class="lg:w-4/5 w-full"
           [formGroup]="loginform"
-          (ngSubmit)="
-            !username?.errors && !password?.errors
-              ? service.loginUser(loginform.value)
-              : null
-          "
+          (ngSubmit)="service.loginUser(loginform.value)"
         >
-          <h3 class="lg:text-2xl text-lg text-center mb-4 mt-3">Login</h3>
+          <h3 class="lg:text-2xl text-lg text-center mb-4 mt-1">Login</h3>
           <div class="flex items-center gap-1">
             <mat-icon fontIcon="person"></mat-icon>
             <p>Username</p>
@@ -28,9 +24,17 @@
                 ? 'border-red-600 dark:border-red-600'
                 : 'dark:border-gray-600'
             ]"
-            class="bg-gray-50 mb-4 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+            class="bg-gray-50 mb-1 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
             formControlName="username"
           />
+          <app-error-message
+            [name]="'username'"
+            [max]="150"
+            [min]="4"
+            [required]="true"
+            [form]="loginform"
+          ></app-error-message>
+
           <div class="flex items-center gap-1">
             <mat-icon fontIcon="lock"></mat-icon>
             <p>Password</p>
@@ -46,6 +50,14 @@
             class="bg-gray-50 border border-gray-300 text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
             formControlName="password"
           />
+          <app-error-message
+            [name]="'password'"
+            [max]="40"
+            [min]="6"
+            [required]="true"
+            [form]="loginform"
+          ></app-error-message>
+
           <div class="flex justify-between flex-wrap items-center mt-3 gap-2">
             <input
               type="submit"

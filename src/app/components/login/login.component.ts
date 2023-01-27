@@ -9,7 +9,6 @@ import {
 import { HttpService } from 'src/app/services/http/http.service';
 import * as $ from 'jquery';
 import { TippyDirective } from '@ngneat/helipopper';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,6 +16,7 @@ import { TippyDirective } from '@ngneat/helipopper';
 })
 export class LoginComponent implements OnInit {
   constructor(public service: HttpService) {}
+
   loginform!: FormGroup;
   ngOnInit(): void {
     this.loginform = new FormGroup({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.maxLength(20),
+        Validators.maxLength(40),
         Validators.minLength(6),
       ]),
     });

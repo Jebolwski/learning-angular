@@ -1,0 +1,6 @@
+pass in field names
+pass in max and min lengths,required state for field names
+[[blogForm,'text','true','3','240']]
+cant set ::before and ::after to an input element 
+i think the element should be closing like <></> this
+not </> this

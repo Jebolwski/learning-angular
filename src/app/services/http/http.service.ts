@@ -164,6 +164,7 @@ export class HttpService {
         this.user = jwtDecode(res.access);
         localStorage.setItem('authTokens', JSON.stringify(res));
         this.authTokens = res;
+        this.toastr.success('Successfully logged in ✨');
         this.router.navigate(['/']);
       },
       (res) => {

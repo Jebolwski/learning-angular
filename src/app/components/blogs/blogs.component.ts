@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http/http.service';
 import * as $ from 'jquery';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
@@ -8,11 +9,22 @@ import * as $ from 'jquery';
 })
 export class BlogsComponent implements OnInit {
   constructor(public service: HttpService) {}
-
+  blogForm!: FormGroup;
   file!: any;
 
   ngOnInit(): void {
     this.service.getBlogs();
+    this.blogForm = new FormGroup({
+      text: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(240),
+        Validators.minLength(3),
+      ]),
+    });
+  }
+
+  get text() {
+    return this.blogForm.get('text');
   }
 
   openFileUpload(): void {

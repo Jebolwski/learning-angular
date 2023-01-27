@@ -16,19 +16,31 @@
       </div>
       <div class="add-blog-toggle hidden p-2">
         <form
-          #addBlogFrom="ngForm"
+          [formGroup]="blogForm"
           (ngSubmit)="
-            addBlog(addBlogFrom.value); addBlogFrom.resetForm(); file = null
+            text?.errors ? addBlog(blogForm.value) : null; file = null
           "
         >
           <textarea
-            class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border border border-stone-300 dark:border-stone-600"
+            class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline shadow-md outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border"
             name="text"
             id="text"
             placeholder="What's up?"
             rows="8"
-            ngModel
+            [ngClass]="[
+              text?.errors && text?.touched
+                ? 'border-red-500 dark:border-red-500'
+                : 'border-stone-300 dark:border-stone-600'
+            ]"
+            formControlName="text"
           ></textarea>
+          <app-error-message
+            [max]="240"
+            [min]="3"
+            [required]="true"
+            [form]="blogForm"
+            [name]="'text'"
+          ></app-error-message>
           <div
             class="blogs-file bg-stone-200 dark:bg-stone-700 flex items-center justify-between rounded-md border border-stone-100 dark:border-stone-800 mt-2 p-1"
             *ngIf="file"
@@ -56,11 +68,15 @@
               ngModel
             />
           </div>
-          <input
-            type="submit"
-            value="Add Blog"
-            class="bg-gradient-to-br cursor-pointer w-full from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md p-1 border border-stone-300 dark:border-stone-600"
-          />
+          <div class="relative">
+            <button
+              type="submit"
+              class="cursor-pointer w-full rounded-md p-1 border border-stone-300 dark:border-stone-600 z-20 duration-300 bg-gradient-to-br from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800"
+              [ngClass]="[text?.errors ? 'opacity-50' : '']"
+            >
+              Add Blog
+            </button>
+          </div>
         </form>
       </div>
     </div>
