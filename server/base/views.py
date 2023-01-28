@@ -98,7 +98,7 @@ def GetBlog(request,pk):
 #!GET ALL BLOGS IN DB
 @api_view(['GET'])
 def GetAllBlogs(request):
-    blog = Blog.objects.all().order_by('-updated')
+    blog = Blog.objects.all().order_by('-created')
     serializer=BlogSerializer(blog,many=True)
     return Response({"msg":serializer.data},status=200)
 
@@ -154,9 +154,11 @@ def EditBlog(request,pk):
         desc = desc.replace(',','')
         desc = desc.split(' ')
         for i in desc:
-            for j in Interest.objects.filter(Q(tr_name__startswith=i[0]) | Q(en_name__endswith=i[0])):
-                if difflib.SequenceMatcher(None,j.tr_name.lower(),i.lower()).ratio()>=0.6 or difflib.SequenceMatcher(None,j.en_name.lower(),i.lower()).ratio()>=0.6:
-                    blog.profile.interests.add(j.id)
+            print(i)
+            if i:
+                for j in Interest.objects.filter(Q(tr_name__startswith=i[0]) | Q(en_name__endswith=i[0])):
+                    if difflib.SequenceMatcher(None,j.tr_name.lower(),i.lower()).ratio()>=0.6 or difflib.SequenceMatcher(None,j.en_name.lower(),i.lower()).ratio()>=0.6:
+                        blog.profile.interests.add(j.id)
 
     
     

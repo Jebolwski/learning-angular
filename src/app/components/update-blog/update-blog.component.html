@@ -3,8 +3,8 @@
     class="bg-gradient-to-br lg:w-4/5 w-full p-3 rounded-md from-stone-200 to-stone-100 dark:from-stone-800 dark:to-stone-700 border border-stone-300 dark:border-stone-600"
   >
     <form
-      #updateBlogFrom="ngForm"
-      (ngSubmit)="updateBlog(updateBlogFrom.value)"
+      [formGroup]="updateblogform"
+      (ngSubmit)="!text?.errors ? updateBlog(updateblogform.value) : null"
     >
       <textarea
         class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border border border-stone-300 dark:border-stone-600"
@@ -13,16 +13,23 @@
         rows="8"
         [minlength]="3"
         [maxlength]="180"
-        ngModel="{{ service.singleblog.text }}"
+        formControlName="text"
       >
       </textarea>
+      <app-error-message
+        [max]="240"
+        [min]="3"
+        [required]="true"
+        [form]="updateblogform"
+        [name]="'text'"
+      ></app-error-message>
       <div>
         <div
           class="blogs-file bg-stone-200 dark:bg-stone-700 flex items-center justify-between rounded-md border border-stone-100 dark:border-stone-800 mt-2 p-1"
-          *ngIf="service.singleblog.file"
+          *ngIf="service?.singleblog?.file"
         >
           <div *ngIf="file">
-            <p>Uploaded photo '{{ file.name }}' 🚀</p>
+            <p>Uploaded photo '{{ file?.name }}' 🚀</p>
           </div>
           <div *ngIf="!file">
             <p>Uploaded photo '{{ service.singleblog.file }}' 🚀</p>
@@ -35,7 +42,7 @@
         </div>
         <div
           class="blogs-file bg-stone-200 dark:bg-stone-700 flex items-center justify-between rounded-md border border-stone-100 dark:border-stone-800 mt-2 p-1"
-          *ngIf="!service.singleblog.file && file"
+          *ngIf="!service.singleblog?.file && file"
         >
           <p>Uploaded photo '{{ file.name }}' 🚀</p>
           <mat-icon
@@ -48,8 +55,8 @@
           (click)="openFileUpload()"
           class="p-1 inline-block cursor-pointer rounded-md my-2 bg-gradient-to-b from-stone-200 to-stone-100 dark:from-stone-800 dark:to-stone-700 border border-stone-200 dark:border-stone-800"
         >
-          <p *ngIf="service.singleblog.file">Change File</p>
-          <p *ngIf="!service.singleblog.file">Upload File</p>
+          <p *ngIf="service.singleblog?.file">Change File</p>
+          <p *ngIf="!service.singleblog?.file">Upload File</p>
         </div>
         <input
           type="file"

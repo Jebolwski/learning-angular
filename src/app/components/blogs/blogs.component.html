@@ -18,13 +18,12 @@
         <form
           [formGroup]="blogForm"
           (ngSubmit)="
-            text?.errors ? addBlog(blogForm.value) : null; file = null
+            !text?.errors && text?.touched ? addBlog(blogForm.value) : null
           "
         >
           <textarea
             class="p-1 w-full mt-3 bg-gradient-to-tr focus-within:outline shadow-md outline-stone-200 dark:outline-stone-700 from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800 rounded-md border"
             name="text"
-            id="text"
             placeholder="What's up?"
             rows="8"
             [ngClass]="[
@@ -69,13 +68,12 @@
             />
           </div>
           <div class="relative">
-            <button
+            <input
+              value="Add Blog"
               type="submit"
               class="cursor-pointer w-full rounded-md p-1 border border-stone-300 dark:border-stone-600 z-20 duration-300 bg-gradient-to-br from-stone-200 to-stone-100 dark:from-stone-700 dark:to-stone-800"
               [ngClass]="[text?.errors ? 'opacity-50' : '']"
-            >
-              Add Blog
-            </button>
+            />
           </div>
         </form>
       </div>

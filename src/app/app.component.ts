@@ -36,7 +36,11 @@ export class AppComponent implements OnInit {
       this.service.user = jwtDecode(localStorage.getItem('authTokens') || '');
     }
 
-    if (this.service.user) {
+    if (
+      this.service.user &&
+      this.service.authTokens &&
+      localStorage.getItem('authTokens')
+    ) {
       let interval: any = setInterval(() => {
         this.service.updateToken();
         console.log('YENİLENDİ');

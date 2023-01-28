@@ -38,8 +38,6 @@ export class BlogsComponent implements OnInit {
 
   onChange(event: any): void {
     this.file = event.target.files[0];
-    console.log('para messi', this.file, this.file.name);
-    console.log(this.service.user.profile.id);
   }
 
   addBlog(data: { text: string; profile: number }): void {
@@ -51,6 +49,7 @@ export class BlogsComponent implements OnInit {
 
     formdata.append('profile', this.service.user.profile.id);
     this.service.addABlog(formdata);
+    this.file = null;
   }
 
   toggleAddBlog() {

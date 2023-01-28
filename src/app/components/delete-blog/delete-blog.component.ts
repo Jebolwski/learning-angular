@@ -19,7 +19,6 @@ export class DeleteBlogComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '0';
     this.service.getABlog(this.id);
-    console.log(this.service.singleblog);
   }
 
   navigateBack(): void {

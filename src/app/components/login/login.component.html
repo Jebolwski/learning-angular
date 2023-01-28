@@ -9,7 +9,11 @@
         <form
           class="lg:w-4/5 w-full"
           [formGroup]="loginform"
-          (ngSubmit)="service.loginUser(loginform.value)"
+          (ngSubmit)="
+            username?.errors || password?.errors
+              ? null
+              : service.loginUser(loginform.value)
+          "
         >
           <h3 class="lg:text-2xl text-lg text-center mb-4 mt-1">Login</h3>
           <div class="flex items-center gap-1">

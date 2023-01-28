@@ -64,11 +64,14 @@ export class HttpService {
   }
 
   getABlog(id: string): void {
-    this.http
-      .get<Blog[]>(this.baseApiUrl + 'blogs/' + id)
-      .subscribe((res: any) => {
+    this.http.get<Blog[]>(this.baseApiUrl + 'blogs/' + id).subscribe(
+      (res: any): void => {
         this.singleblog = res.msg;
-      });
+      },
+      (err): void => {
+        console.log(err);
+      }
+    );
   }
 
   addABlog(data: FormData): void {

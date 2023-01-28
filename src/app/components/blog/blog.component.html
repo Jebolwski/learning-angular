@@ -22,12 +22,12 @@
         <div>
           {{ blog.profile.user.username }}
         </div>
-        <div>•</div>
-        <div>{{ blog.updated | timeAgo }}</div>
+        <div class="sm:block hidden">•</div>
+        <div class="sm:block hidden">{{ blog.updated | timeAgo }}</div>
       </a>
       <div
         *ngIf="service?.user?.profile?.id == blog.profile.id"
-        class="flex gap-2 h-min"
+        class="flex gap-2 items-center"
       >
         <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"
           ><mat-icon fontIcon="edit_note" class="text-blue-400"></mat-icon
