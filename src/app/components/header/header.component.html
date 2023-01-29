@@ -33,10 +33,16 @@
       </button>
       <div *ngIf="service.user" class="relative">
         <img
+          *ngIf="service.user?.profile.profilePic"
           src="http://127.0.0.1:8000{{ service.user?.profile.profilePic }}"
-          class="w-8 h-8 rounded-full md:hidden flex items-center ml-2 cursor-pointer"
+          class="w-8 h-8 rounded-full md:hidden cursor-pointer"
           (click)="toggleProfileDiv2()"
-          alt="profile picture"
+        />
+        <img
+          *ngIf="!service.user?.profile.profilePic"
+          src="https://www.themoviedb.org/t/p/w235_and_h235_face/2PZdxQPP69RguOmZZvkrtBJrBWm.jpg"
+          class="w-8 h-8 rounded-full md:hidden cursor-pointer"
+          (click)="toggleProfileDiv2()"
         />
         <div
           class="profile-toggle-div-2 hidden absolute -left-8 top-9 p-2 bg-gradient-to-tr from-stone-100 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 rounded-md"
@@ -44,6 +50,7 @@
           <a
             routerLink="/profile/{{ service.user?.profile.id }}"
             class="flex cursor-pointer gap-2 items-center"
+            (click)="toggleProfileDiv2()"
           >
             <mat-icon
               aria-hidden="false"
@@ -62,7 +69,7 @@
           </div>
           <div
             class="flex cursor-pointer gap-2 items-center"
-            (click)="service.logoutUser()"
+            (click)="service.logoutUser(); toggleProfileDiv2()"
           >
             <mat-icon
               aria-hidden="false"
@@ -89,6 +96,7 @@
           *ngIf="service.darkMode == 'true'"
         >
           <mat-icon
+            matTooltip="Light Mode"
             aria-hidden="false"
             aria-label="light-icon"
             fontIcon="light_mode"
@@ -100,6 +108,7 @@
           class="flex items-center cursor-pointer ml-5"
         >
           <mat-icon
+            matTooltip="Dark Mode"
             aria-hidden="false"
             aria-label="dark-icon"
             fontIcon="dark_mode"
@@ -116,6 +125,7 @@
         <mat-icon
           aria-hidden="false"
           aria-label="light-icon"
+          matTooltip="Light Mode"
           fontIcon="light_mode"
         ></mat-icon>
       </div>
@@ -125,6 +135,7 @@
         class="flex items-center cursor-pointer"
       >
         <mat-icon
+          matTooltip="Dark Mode"
           aria-hidden="false"
           aria-label="dark-icon"
           fontIcon="dark_mode"
@@ -165,6 +176,7 @@
           <a
             routerLink="/profile/{{ service.user?.profile.id }}"
             class="flex cursor-pointer gap-2 items-center"
+            (click)="toggleProfileDiv()"
           >
             <mat-icon
               aria-hidden="false"
@@ -188,7 +200,7 @@
           </div>
           <div
             class="flex cursor-pointer gap-2 items-center"
-            (click)="service.logoutUser()"
+            (click)="service.logoutUser(); toggleProfileDiv()"
           >
             <mat-icon
               aria-hidden="false"

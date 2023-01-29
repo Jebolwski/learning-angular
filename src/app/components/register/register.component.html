@@ -1,1 +1,120 @@
-<p>register works!</p>
+<div class="px-5">
+  <div
+    class="bg-gradient-to-br mt-5 p-3 from-stone-200 to-stone-300 dark:from-stone-800 dark:to-stone-700 border border-stone-300 dark:border-stone-700 rounded-md shadow-md"
+  >
+    <form [formGroup]="registerform" (submit)="register(registerform.value)">
+      <h3 class="lg:text-xl text-lg text-center">Register</h3>
+      <!-- Username -->
+      <div>
+        <div class="flex items-center gap-1">
+          <mat-icon fontIcon="person"></mat-icon>
+          <p>Username</p>
+        </div>
+        <input
+          type="text"
+          name="username"
+          [ngClass]="[
+            username?.errors && username?.touched
+              ? 'border-red-600 dark:border-red-600'
+              : 'dark:border-gray-600 border-gray-300'
+          ]"
+          class="bg-gray-50 mb-1 border text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          formControlName="username"
+        />
+        <app-error-message
+          [name]="'username'"
+          [max]="150"
+          [min]="4"
+          [required]="true"
+          [form]="registerform"
+        ></app-error-message>
+      </div>
+      <!-- Email -->
+      <div>
+        <div class="flex items-center gap-1">
+          <mat-icon fontIcon="mail"></mat-icon>
+          <p>Email</p>
+        </div>
+        <input
+          type="email"
+          name="email"
+          [ngClass]="[
+            email?.errors && email?.touched
+              ? 'border-red-600 dark:border-red-600'
+              : 'dark:border-gray-600 border-gray-300'
+          ]"
+          class="bg-gray-50 border text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          formControlName="email"
+        /><app-error-message
+          [name]="'email'"
+          [email]="true"
+          [required]="true"
+          [form]="registerform"
+        ></app-error-message>
+      </div>
+      <!-- Password -->
+      <div>
+        <div class="flex items-center gap-1">
+          <mat-icon fontIcon="lock"></mat-icon>
+          <p>Password</p>
+        </div>
+        <input
+          type="password"
+          name="password"
+          [ngClass]="[
+            password?.errors && password?.touched
+              ? 'border-red-600 dark:border-red-600'
+              : 'dark:border-gray-600 border-gray-300'
+          ]"
+          class="bg-gray-50 border text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          formControlName="password"
+        /><app-error-message
+          [name]="'password'"
+          [max]="40"
+          [min]="6"
+          [required]="true"
+          [form]="registerform"
+        ></app-error-message>
+      </div>
+      <!-- Password (Again) -->
+      <div>
+        <div class="flex items-center gap-1">
+          <mat-icon fontIcon="lock"></mat-icon>
+          <p>Password (Again)</p>
+        </div>
+        <input
+          type="password"
+          name="password_again"
+          [ngClass]="[
+            password?.errors && password?.touched
+              ? 'border-red-600 dark:border-red-600'
+              : 'dark:border-gray-600 border-gray-300'
+          ]"
+          class="bg-gray-50 border text-netural-900 text-sm rounded-lg p-2 w-full dark:bg-neutral-800 dark:placeholder-gray-400 dark:text-white focus-visible:outline focus-visible:dark:outline-neutral-700 focus-visible:outline-neutral-300"
+          formControlName="password_again"
+        />
+        <app-error-message
+          [name]="'password'"
+          [max]="40"
+          [min]="6"
+          [required]="true"
+          [form]="registerform"
+        ></app-error-message>
+      </div>
+      <!-- Register Button -->
+      <input
+        type="submit"
+        value="Register"
+        [ngClass]="[
+          password?.errors ||
+          username?.errors ||
+          email?.errors ||
+          password_again?.errors
+            ? 'opacity-50 cursor-default'
+            : 'cursor-pointer'
+        ]"
+        class="bg-gradient-to-tl text-center cursor-pointer w-full from-stone-300 to-stone-200 dark:from-stone-700 dark:to-stone-800 border border-stone-200 dark:border-stone-700 text-lg rounded-md"
+      />
+    </form>
+  </div>
+</div>

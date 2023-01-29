@@ -29,10 +29,18 @@
         *ngIf="service?.user?.profile?.id == blog.profile.id"
         class="flex gap-2 items-center"
       >
-        <a routerLink="/blog/{{ blog.id }}/update" title="Update blog"
+        <a
+          routerLink="/blog/{{ blog.id }}/update"
+          title="Update blog"
+          matTooltip="Update"
+          matTooltipShowDelay="500"
           ><mat-icon fontIcon="edit_note" class="text-blue-400"></mat-icon
         ></a>
-        <a routerLink="/blog/{{ blog.id }}/delete" title="Delete blog"
+        <a
+          routerLink="/blog/{{ blog.id }}/delete"
+          title="Delete blog"
+          matTooltip="Delete"
+          matTooltipShowDelay="500"
           ><mat-icon fontIcon="delete_sweep" class="text-red-400"></mat-icon
         ></a>
       </div>
@@ -51,59 +59,68 @@
     ></div>
     <div class="interactions flex items-center justify-around flex-wrap">
       <!-- Comments -->
-      <div class="flex items-center gap-1" *ngIf="service.user">
+      <div
+        class="flex items-center gap-1 cursor-pointer"
+        matTooltip="Comments"
+        matTooltipShowDelay="400"
+        *ngIf="service.user"
+      >
         <div class="flex items-center gap-1">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="favorite-icon"
-            fontIcon="comment"
-            class="cursor-pointer"
-          ></mat-icon>
+          <mat-icon aria-hidden="false" fontIcon="comment"></mat-icon>
           <span>{{ blog.likes?.length || "0" }}</span>
         </div>
       </div>
-      <div class="flex items-center gap-1" *ngIf="!service.user">
+      <div
+        class="flex items-center gap-1 cursor-pointer"
+        matTooltip="Comments"
+        matTooltipShowDelay="400"
+        *ngIf="!service.user"
+      >
         <div (click)="service.youNeedToLogin()" class="flex items-center gap-1">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="favorite-icon"
-            fontIcon="comment"
-            class="cursor-pointer"
-          ></mat-icon>
+          <mat-icon aria-hidden="false" fontIcon="comment"></mat-icon>
           <span>{{ blog.likes?.length || "0" }}</span>
         </div>
       </div>
       <!-- Likes -->
-      <div class="flex items-center gap-1" *ngIf="service.user">
+      <div
+        class="flex items-center gap-1 cursor-pointer"
+        *ngIf="service.user"
+        matTooltip="Likes"
+        matTooltipShowDelay="400"
+        (click)="service.toggleBlogLike(blog.id)"
+      >
         <div
-          *ngIf="blog.likes.includes(service.user?.profile?.user?.id)"
-          (click)="service.toggleBlogLike(blog.id)"
+          *ngIf="blog.likes.includes(service.user?.profile?.id)"
           class="flex items-center"
         >
           <mat-icon
             aria-hidden="false"
             aria-label="favorite-icon"
             fontIcon="favorite"
-            class="cursor-pointer text-green-400"
+            class="text-green-400"
           ></mat-icon>
         </div>
         <div
-          *ngIf="!blog.likes.includes(service.user?.profile?.user?.id)"
+          *ngIf="!blog.likes.includes(service.user?.profile?.id)"
           (click)="service.toggleBlogLike(blog.id)"
-          class="flex items-center"
+          class="flex items-center cursor-pointer"
         >
           <mat-icon
             aria-hidden="false"
             aria-label="favorite-icon"
             fontIcon="favorite"
-            class="cursor-pointer"
           ></mat-icon>
         </div>
         <span>
           {{ blog.likes?.length || "0" }}
         </span>
       </div>
-      <div class="flex items-center gap-1" *ngIf="!service.user">
+      <div
+        class="flex items-center gap-1 cursor-pointer"
+        matTooltip="Likes"
+        matTooltipShowDelay="400"
+        *ngIf="!service.user"
+      >
         <div
           *ngIf="!blog.likes.includes(service.user?.profile?.id)"
           (click)="service.youNeedToLogin()"

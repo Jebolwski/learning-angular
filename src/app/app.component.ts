@@ -36,6 +36,10 @@ export class AppComponent implements OnInit {
       this.service.user = jwtDecode(localStorage.getItem('authTokens') || '');
     }
 
+    if (localStorage.getItem('authTokens')) {
+      this.service.updateToken();
+    }
+
     if (
       this.service.user &&
       this.service.authTokens &&

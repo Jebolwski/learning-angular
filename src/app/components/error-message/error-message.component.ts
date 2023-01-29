@@ -9,9 +9,10 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class ErrorMessageComponent {
   constructor(private service: HttpService) {}
-  @Input() max!: number;
-  @Input() min!: number;
+  @Input() max = 100000;
+  @Input() min = 0;
   @Input() required!: boolean;
   @Input() form!: FormGroup;
+  @Input() email = false;
   @Input() name!: string;
 }

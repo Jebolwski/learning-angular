@@ -13,6 +13,12 @@
   </p>
   <p
     class="text-red-500"
+    *ngIf="form.controls?.[name]?.errors?.['email'] && form.controls?.[name]?.touched"
+  >
+    This doesnt match email format 🤨
+  </p>
+  <p
+    class="text-red-500"
     *ngIf="form.controls?.[name]?.errors?.['minlength'] && form.controls?.[name]?.touched"
   >
     Min length of {{ name | lowercase }} is {{ min }} characters 🤔

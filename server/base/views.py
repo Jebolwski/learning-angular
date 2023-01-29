@@ -63,7 +63,7 @@ def Register(request):
     if request.data.get('password') is None:
         return Response({"msg":"Password 1 is not provided 😅"},status=400)
     
-    if request.data.get('password1') is None:
+    if request.data.get('password_again') is None:
         return Response({"msg":"Password 2 is not provided 😅"},status=400)
     
     if len(User.objects.filter(username=request.data['username']))>0:
@@ -72,10 +72,10 @@ def Register(request):
     if len(User.objects.filter(email=request.data['email']))>0:
         return Response({"msg":"This email taken 😥"},status=400)
     
-    if request.data.get('password1')!=request.data.get('password'):
+    if request.data.get('password_again')!=request.data.get('password'):
         return Response({"msg":"Passwords do not match 😒"},status=400)
     
-    if len(request.data.get('password1'))<=7 and len(request.data.get('password'))<=7:
+    if len(request.data.get('password_again'))<=7 and len(request.data.get('password'))<=7:
         return Response({"msg":"Password must be at least 8 characters 😅"},status=400)
     
     serializer = UserSerializer(data=request.data,many=False)

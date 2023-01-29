@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
 import { User } from 'src/app/interfaces/user';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -64,14 +65,14 @@ export class HttpService {
   }
 
   getABlog(id: string): void {
-    this.http.get<Blog[]>(this.baseApiUrl + 'blogs/' + id).subscribe(
-      (res: any): void => {
+    this.http.get<Blog[]>(this.baseApiUrl + 'blogs/' + id).subscribe({
+      next: (res: any): void => {
         this.singleblog = res.msg;
       },
-      (err): void => {
+      error: (err): void => {
         console.log(err);
-      }
-    );
+      },
+    });
   }
 
   addABlog(data: FormData): void {
@@ -95,9 +96,14 @@ export class HttpService {
       .delete(this.baseApiUrl + 'blogs/' + id + '/en/delete', {
         headers: headers,
       })
-      .subscribe((res: any) => {
-        this.toastr.success(res['msg']);
-        this.router.navigate(['/']);
+      .subscribe({
+        next: (res: any) => {
+          this.toastr.success(res['msg']);
+          this.router.navigate(['/']);
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
       });
   }
 
@@ -132,25 +138,27 @@ export class HttpService {
     });
     this.http
       .get<Profile>(this.baseApiUrl + 'profile/' + id, { headers: headers })
-      .subscribe(
-        (res: any) => {
+      .subscribe({
+        next: (res: any) => {
           this.profile = res.msg;
         },
-        (err) => {
+        error: (err) => {
           this.toastr.error(err.msg);
-        }
-      );
+        },
+      });
   }
 
   toggleBlogLike(id: number): void {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${this.authTokens.access}`,
     });
+    console.log(this.user);
+
     this.http
       .post(
         this.baseApiUrl + 'blogs/' + id + '/toggle-like',
         {
-          id: this.user.profile.user.id,
+          id: this.user?.profile?.id,
         },
         { headers: headers }
       )
@@ -162,18 +170,32 @@ export class HttpService {
   }
 
   loginUser(data: any): void {
-    this.http.post<any>(this.baseApiUrl + 'token', data).subscribe(
-      (res) => {
+    this.http.post<any>(this.baseApiUrl + 'token', data).subscribe({
+      next: (res) => {
         this.user = jwtDecode(res.access);
         localStorage.setItem('authTokens', JSON.stringify(res));
         this.authTokens = res;
         this.toastr.success('Successfully logged in ✨');
         this.router.navigate(['/']);
       },
-      (res) => {
+      error: (res) => {
         this.toastr.error(res.error.detail);
-      }
-    );
+      },
+    });
+  }
+
+  registerUser(data: any): void {
+    let resp = this.http
+      .post<any>(this.baseApiUrl + 'register', data)
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(['/login']);
+          this.toastr.success('Sucessfully registered user 🌝');
+        },
+        error: (err) => {
+          this.toastr.error(err.error.msg);
+        },
+      });
   }
 
   updateToken(): void {
@@ -183,9 +205,16 @@ export class HttpService {
           refresh: this.authTokens?.refresh,
         })
         .subscribe((res: any) => {
-          this.authTokens = res;
-          this.user = jwtDecode(res.access);
-          localStorage.setItem('authTokens', JSON.stringify(res));
+          next: {
+            this.authTokens = res;
+            this.user = jwtDecode(res.access);
+            localStorage.setItem('authTokens', JSON.stringify(res));
+          }
+          error: {
+            (err: Error) => {
+              console.log(err);
+            };
+          }
         });
     }
   }
@@ -204,8 +233,13 @@ export class HttpService {
         },
         { headers: headers }
       )
-      .subscribe((res: any) => {
-        this.profile = res.data;
+      .subscribe({
+        next: (res: any) => {
+          this.profile = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
       });
   }
 

@@ -19,12 +19,8 @@ import { UpdateBlogComponent } from './components/update-blog/update-blog.compon
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import {
-  provideTippyConfig,
-  tooltipVariation,
-  popperVariation,
-} from '@ngneat/helipopper';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Pipe({
   name: 'timeAgo',
   pure: false,
@@ -51,6 +47,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatTooltipModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -64,15 +61,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
       progressBar: true,
     }),
   ],
-  providers: [
-    provideTippyConfig({
-      defaultVariation: 'tooltip',
-      variations: {
-        tooltip: tooltipVariation,
-        popper: popperVariation,
-      },
-    }),
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -7,8 +7,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { HttpService } from 'src/app/services/http/http.service';
-import * as $ from 'jquery';
-import { TippyDirective } from '@ngneat/helipopper';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
